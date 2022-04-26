@@ -1,0 +1,234 @@
+<section class="users-edit">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- Nav-tabs -->
+            <ul
+              ngbNav
+              #nav="ngbNav"
+              [activeId]="1"
+              class="nav-tabs justify-content-left"
+            >
+              <li [ngbNavItem]="1">
+                <a ngbNavLink class="nav-link d-flex align-items-center">
+                  <i class="ft-user mr-1"></i>
+                  <span class="d-none d-sm-block">Account</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <!-- Account content starts -->
+                  <div class="mt-2" id="account">
+                    <!-- Account form starts -->
+                    <form [formGroup]="updateForm" (submit)="updateUser()">
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-username">Username</label>
+                              <input type="text" formControlName="userName" id="users-edit-username" class="form-control"
+                                placeholder="Username" required 
+                                [ngClass]="{ 'is-invalid': updateFormSubmitted && rf.userName.invalid, 'is-valid': updateFormSubmitted && !rf.userName.invalid }"/>
+                              <div *ngIf="updateFormSubmitted && (rf.userName.invalid || rf.userName.errors?.required)"
+                                class="help-block mt-1 text-danger">
+                                <i class="ft-alert-circle align-middle"></i>
+                                User Name is required
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-name">Name</label>
+                              <input type="text" formControlName="fullName" id="users-edit-name" class="form-control" placeholder="Name" required
+                                [ngClass]="{ 'is-invalid': updateFormSubmitted && rf.fullName.invalid, 'is-valid': updateFormSubmitted && !rf.fullName.invalid }"
+                              />
+                              <div *ngIf=" updateFormSubmitted && (rf.fullName.invalid || rf.fullName.errors?.required)" class="help-block mt-1 text-danger">
+                                <i class="ft-alert-circle align-middle"></i>
+                                Full Name is required
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-email">E-mail</label>
+                              <input type="email" formControlName="email" id="users-edit-email" class="form-control" placeholder="Email" required
+                              [ngClass]="{ 'is-invalid': updateFormSubmitted && rf.email.invalid, 'is-valid': updateFormSubmitted && !rf.email.invalid }"
+                              />
+                              <div *ngIf=" updateFormSubmitted && (rf.email.invalid || rf.email.errors?.required)" class="help-block mt-1 text-danger">
+                                <i class="ft-alert-circle align-middle"></i>
+                                Email is required
+                              </div>
+                              <div *ngIf="updateFormSubmitted &&  rf.email.errors?.email" class="help-block mt-1 text-danger"> <i
+                                class="ft-alert-circle align-middle"></i> Email must be a valid email address</div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-role">Role</label>
+                              <select id="users-edit-role" class="form-control" required formControlName="role" 
+                              [ngClass]="{ 'is-invalid': updateFormSubmitted && rf.role.invalid, 'is-valid': updateFormSubmitted && !rf.role.invalid }">
+                                <option value="user.role" selected>{{ user.role }}</option>
+                                <option *ngFor="let role of roles">{{ role.Role }}</option>
+                              </select>
+                              <div *ngIf=" updateFormSubmitted && (rf.role.invalid || rf.role.errors?.required)" class="help-block mt-1 text-danger">
+                                <i class="ft-alert-circle align-middle"></i>
+                                Role is required
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-phone">Phone</label>
+                              <input type="text" formControlName="phoneNumber" id="users-edit-phone" class="form-control"
+                                placeholder="Phone Number" required 
+                                [ngClass]="{ 'is-invalid': updateFormSubmitted && rf.phoneNumber.invalid, 'is-valid': updateFormSubmitted && !rf.phoneNumber.invalid }"/>
+                              <div *ngIf="updateFormSubmitted && (rf.phoneNumber.invalid || rf.phoneNumber.errors?.required)" class="help-block mt-1 text-danger"> 
+                                <i class="ft-alert-circle align-middle"></i> Phone Number must be a valid</div>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-address">Address</label>
+                              <input type="text" formControlName="adresse" id="users-edit-address" class="form-control"
+                                placeholder="Address" required
+                                [ngClass]="{ 'is-invalid': updateFormSubmitted && rf.adresse.invalid, 'is-valid': updateFormSubmitted && !rf.adresse.invalid }"/>
+                              <div *ngIf=" updateFormSubmitted && (rf.adresse.invalid || rf.adresse.errors?.required)" class="help-block mt-1 text-danger">
+                                  <i class="ft-alert-circle align-middle"></i>
+                                  Adresse is required
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="col-12 users-module">
+                          <div class="table-responsive">
+                            <table class="table mb-0 mt-3">
+                              <thead>
+                                <tr>
+                                  <th>Module Permission</th>
+                                  <th>Read</th>
+                                  <th>Write</th>
+                                  <th>Create</th>
+                                  <th>Delete</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Users</td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox1" checked />
+                                      <label for="users-checkbox1"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox2" />
+                                      <label for="users-checkbox2"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox3" />
+                                      <label for="users-checkbox3"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox4" checked />
+                                      <label for="users-checkbox4"></label>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Articles</td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox5"/>
+                                      <label for="users-checkbox5"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox6" checked />
+                                      <label for="users-checkbox6"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox7"/>
+                                      <label for="users-checkbox7"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox8" checked />
+                                      <label for="users-checkbox8"></label>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Staff</td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox9" checked />
+                                      <label for="users-checkbox9"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox10" checked />
+                                      <label for="users-checkbox10"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox11"/>
+                                      <label for="users-checkbox11"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox12" />
+                                      <label for="users-checkbox12"></label>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        <div
+                          class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                          <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2" >Save Changes</button>
+                          <button type="reset" class="btn btn-secondary">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
+                    <!-- Account form ends -->
+                  </div>
+                  <!-- Account content ends -->
+                </ng-template>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div [ngbNavOutlet]="nav"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
