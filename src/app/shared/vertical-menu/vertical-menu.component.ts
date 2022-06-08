@@ -1,3 +1,4 @@
+import { Role } from './../Models/RoleModel';
 import {
   Component, OnInit, ViewChild, OnDestroy,
   ElementRef, AfterViewInit, ChangeDetectorRef, HostListener
@@ -23,7 +24,7 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('toggleIcon') toggleIcon: ElementRef;
   public menuItems: any[];
   level: number = 0;
-  logoUrl = 'assets/img/logo.png';
+  logoUrl = 'assets/img/mon-image.png';
   public config: any = {};
   protected innerWidth: any;
   layoutSub: Subscription;
@@ -145,6 +146,8 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+
+  
 
   ngOnDestroy() {
     if (this.layoutSub) {

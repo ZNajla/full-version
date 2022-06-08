@@ -12,7 +12,7 @@ import { User } from '../Models/UserModel';
 export class UsersService {
 
   readonly url = 'https://localhost:7268/api/User';
-  user : User ;
+  public user : User ;
 
   constructor(public router: Router , private httpClient: HttpClient) { }
 
@@ -78,7 +78,7 @@ export class UsersService {
           if (res.responseCode == ResponseCode.OK) {
             console.log(res);
             if (res.dateSet) {
-              this.user = res.dateSet;
+              this.user = new User(res.dateSet.id,res.dateSet.fullName, res.dateSet.email, res.dateSet.userName,res.dateSet.phoneNumber,res.dateSet.adresse, res.dateSet.role );
             }
           }
           return this.user;

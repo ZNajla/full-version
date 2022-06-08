@@ -1,8 +1,5 @@
 import { Component, ViewChild, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-
-// import custom validator to validate that password and confirm password fields match
-import { MustMatch } from '../../../shared/directives/must-match.validator';
+import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/shared/auth/auth.service';
 import { Observable } from 'rxjs';
@@ -49,15 +46,6 @@ export class RegisterPageComponent implements OnInit {
     }
 
     console.log(this.registerForm.controls["fullName"].value);
-    
-    let fullName = this.registerForm.controls["fullName"].value;
-    let userName = this.registerForm.controls["userName"].value;
-    let email = this.registerForm.controls["email"].value;
-    let adresse = this.registerForm.controls["adresse"].value;
-    let phoneNumber = this.registerForm.controls["phoneNumber"].value;
-    let role = this.registerForm.controls["role"].value;
-    let password = this.registerForm.controls["password"].value;
-
     console.log("work!!!!");
     const res = this.authService.signupUser(this.registerForm.value) as Observable<any>;
     res.subscribe((data) => {

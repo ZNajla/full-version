@@ -8,53 +8,6 @@
           <span>Create</span>
         </span>
       </button>
-      <!-- Filter starts 
-        <div class="users-list-filter px-2">
-          <form>
-            <div class="row border rounded py-2 mb-2 mx-n2">
-              <div class="col-12 col-sm-6 col-lg-3">
-                <label for="users-list-verified">Verified</label>
-                <fieldset class="form-group">
-                  <select id="users-list-verified" class="form-control">
-                    <option value="">Any</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </fieldset>
-              </div>
-  
-              <div class="col-12 col-sm-6 col-lg-3">
-                <label for="users-list-role">Role</label>
-                <fieldset class="form-group">
-                  <select id="users-list-role" class="form-control">
-                    <option value="">Any</option>
-                    <option value="User">User</option>
-                    <option value="Staff">Staff</option>
-                  </select>
-                </fieldset>
-              </div>
-  
-              <div class="col-12 col-sm-6 col-lg-3">
-                <label for="users-list-status">Status</label>
-                <fieldset class="form-group">
-                  <select id="users-list-status" class="form-control">
-                    <option value="">Any</option>
-                    <option value="Active">Active</option>
-                    <option value="Close">Close</option>
-                    <option value="Banned">Banned</option>
-                  </select>
-                </fieldset>
-              </div>
-  
-              <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-                <button type="reset" class="btn btn-primary btn-block users-list-clear glow mb-0">
-                  Clear
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>-->
-      <!-- Filter ends -->
     </div>
     <div class="col-12">
       <div class="card">
@@ -108,7 +61,7 @@
                     ><i class="ft-edit text-primary cursor-pointer mr-2"></i
                   ></a>
                   <a (click)="onDeleteRole(value)" *ngIf="!roleAdmin(value)"
-                    ><i class="ft-delete text-danger cursor-pointer"></i
+                    ><i class="ft-trash-2 text-danger cursor-pointer"></i
                   ></a>
                 </ng-template>
               </ngx-datatable-column>

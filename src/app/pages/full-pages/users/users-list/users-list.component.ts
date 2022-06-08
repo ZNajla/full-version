@@ -91,7 +91,7 @@ export class UsersListComponent implements OnInit {
       title: '<strong> Are you sure to delete </strong>',
       icon: 'info',
       html: 'Press yes to delete it !!',
-      showCloseButton: true,
+      showCloseButton: false,
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Yes!',
@@ -119,7 +119,7 @@ export class UsersListComponent implements OnInit {
   }
 
   addUser() {
-    const modalRef = this.modalService.open(UsersAddComponent);
+    const modalRef = this.modalService.open(UsersAddComponent , {size : "xl"});
     modalRef.result.then((result) => {
       console.log(result);
       const res = this.authService.signupUser(result) as Observable<any>;

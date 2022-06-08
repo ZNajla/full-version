@@ -17,6 +17,8 @@ import { UsersEditComponent } from './users/users-edit/users-edit.component';
 import { UsersAddComponent } from './users/users-add/users-add.component';
 import { RolesListComponent } from './roles/roles-list/roles-list.component';
 import { RolesEditComponent } from './roles/roles-edit/roles-edit.component';
+import { ListWorkflowComponent } from './workflow/list-workflow/list-workflow.component';
+import { AddWorkflowComponent } from './workflow/add-workflow/add-workflow.component';
 
 const routes: Routes = [
   {
@@ -101,42 +103,64 @@ const routes: Routes = [
         path: 'roles-list',
         component: RolesListComponent,
         data: {
-          title: 'List'
+          title: 'List',
+          roles:  ['Admin']
         }
       },
       {
         path: 'roles-edit/:name',
         component: RolesEditComponent,
         data: {
-          title: 'Edit'
+          title: 'Edit',
+          roles:  ['Admin']
         }
       },
       {
         path: 'users-add',
         component: UsersAddComponent,
         data: {
-          title: 'Add'
+          title: 'Add',
+          roles:  ['Admin']
         }
       },
       {
         path: 'users-list',
         component: UsersListComponent,
         data: {
-          title: 'List'
+          title: 'List',
+          roles:  ['Admin']
         }
       },
       {
         path: 'users-view',
         component: UsersViewComponent,
         data: {
-          title: 'View'
+          title: 'View',
+          roles: ['Admin']
         }
       },
       {
         path: 'users-edit',
         component: UsersEditComponent,
         data: {
-          title: 'Edit'
+          title: 'Edit',
+          roles: ['Admin']
+        }
+      },
+      {
+        path: 'workflow-list',
+        component: ListWorkflowComponent,
+        data: {
+          title: 'List',
+          roles: ['Admin']
+        }
+      },
+      {
+        path: 'add-workflow',
+        component: AddWorkflowComponent,
+        data: {
+          title: 'Add',
+          roles:  ['Admin']
         }
       }
     ]

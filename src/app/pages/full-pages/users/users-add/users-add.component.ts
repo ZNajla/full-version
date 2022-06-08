@@ -1,3 +1,4 @@
+import { value } from './../../../../shared/data/dropdowns';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +27,9 @@ export class UsersAddComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
-  constructor(public activeModal: NgbActiveModal ,private formBuilder: FormBuilder ,private roleService:RoleService) { }
+  constructor(public activeModal: NgbActiveModal ,private formBuilder: FormBuilder ,private roleService:RoleService) { 
+    this.registerForm.reset();
+  }
 
   ngOnInit(): void {
     this.getListRoles();

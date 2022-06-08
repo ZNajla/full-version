@@ -131,10 +131,13 @@ export const ROUTES: RouteInfo[] = [
     ]
   },*/
   {
-    path: '/roles-list', title: 'Roles', icon: 'ft-clipboard', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+    path: '/roles-list', title: 'Roles', icon: 'ft-clipboard', class: '', badge: '', badgeClass: '', isExternalLink: false ,  submenu: []
   },
   {
     path: '/users-list', title: 'Users', icon: 'ft-users', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+  },
+  {
+    path: '/workflow-list', title: 'Workflows', icon: 'ft-users', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
   },
   /*
   {

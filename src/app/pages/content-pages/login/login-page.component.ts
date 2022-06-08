@@ -1,14 +1,10 @@
-import { ResponseCode } from './../../../shared/Enums/ResponseCode';
-import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild, Pipe, OnInit } from '@angular/core';
-import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component } from '@angular/core';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from "@angular/router";
 import { AuthService } from 'app/shared/auth/auth.service';
-import { ResponseModel } from 'app/shared/Models/ResponseModel';
 import { User } from 'app/shared/Models/UserModel';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -36,7 +32,7 @@ export class LoginPageComponent {
 
   constructor(private router: Router, private authService: AuthService,
     private spinner: NgxSpinnerService,
-    private route: ActivatedRoute , private formBuilder:FormBuilder , private httpClient: HttpClient) {
+    private formBuilder:FormBuilder) {
   }
 
 
@@ -46,7 +42,7 @@ export class LoginPageComponent {
 
   // On submit button click
   onSubmit() {
-    this.loginFormSubmitted = true;
+  this.loginFormSubmitted = true;
    this.spinner.show(undefined,
     {
       type: 'ball-triangle-path',
@@ -56,11 +52,9 @@ export class LoginPageComponent {
       fullScreen: true
     });
     console.log("on submit");
-    console.log("http")
     const res = this.authService.signinUser(this.loginForm.controls["email"].value,this.loginForm.controls["password"].value) as Observable<any>;
     res.subscribe((data) => {
       if(data.responseCode == 1){
-        console.log("result"+data);
         console.log("responce code ok");
         localStorage.setItem("userInfo",JSON.stringify(data.dateSet));
         this.spinner.hide();

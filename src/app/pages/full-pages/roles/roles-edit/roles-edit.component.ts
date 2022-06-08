@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { RoleService } from 'app/shared/auth/role.service';
 import { UsersService } from 'app/shared/auth/users.service';
@@ -44,7 +44,7 @@ export class RolesEditComponent implements OnInit {
    // private
    private tempData = [];
  
-  constructor(private roleService : RoleService ,private formBuilder: FormBuilder , private route : ActivatedRoute , private usersService : UsersService , public toastr: ToastrService) { 
+  constructor(private roleService : RoleService ,private formBuilder: FormBuilder , private route : ActivatedRoute , private usersService : UsersService , public toastr: ToastrService , private router:Router) { 
     this.tempData = this.userList;
   }
 
@@ -75,7 +75,7 @@ export class RolesEditComponent implements OnInit {
       title: '<strong> Are you sure to delete </strong>',
       icon: 'info',
       html: 'Press yes to delete it !!',
-      showCloseButton: true,
+      showCloseButton: false,
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Yes!',
@@ -118,6 +118,14 @@ export class RolesEditComponent implements OnInit {
       }
     })
 
+  }
+
+  onUpdateUser(id :string){
+    console.log(id);
+    this.usersService.getUserById(id).subscribe((data) =>{
+      console.log(data);
+      this.router.navigate([`/users-edit`]);
+    })
   }
 
   userListSize(){

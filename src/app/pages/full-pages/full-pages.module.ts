@@ -30,11 +30,20 @@ import { UsersAddComponent } from './users/users-add/users-add.component';
 import { RolesListComponent } from './roles/roles-list/roles-list.component';
 import { RolesEditComponent } from './roles/roles-edit/roles-edit.component';
 import { AddRoleModalComponent } from './roles/roles-list/add-role-modal/add-role-modal.component';
+import { AddWorkflowComponent } from './workflow/add-workflow/add-workflow.component';
+import { ListWorkflowComponent } from './workflow/list-workflow/list-workflow.component';
+import { ListTypesComponent } from './types/list-types/list-types.component';
+import { AddTypeModalComponent } from './types/list-Types/add-type-modal/add-type-modal.component';
+import { AddDocumentComponent } from './document/list-document/add-document/add-document.component';
+import { ListDocumentComponent } from './document/list-document/list-document.component';
+import { ArchwizardModule } from "angular-archwizard";
+import { ViewDetailsComponent } from './workflow/view-details/view-details.component';
 @NgModule({
   imports: [
     CommonModule,
     FullPagesRoutingModule,
     FormsModule,
+    ArchwizardModule,
     ReactiveFormsModule,
     ChartistModule,
     AgmCoreModule,
@@ -63,6 +72,13 @@ import { AddRoleModalComponent } from './roles/roles-list/add-role-modal/add-rol
     RolesListComponent,
     RolesEditComponent,
     AddRoleModalComponent,
+    AddWorkflowComponent,
+    ListWorkflowComponent,
+    ListTypesComponent,
+    AddTypeModalComponent,
+    AddDocumentComponent,
+    ListDocumentComponent,
+    ViewDetailsComponent,
   ],
 })
 export class FullPagesModule {}

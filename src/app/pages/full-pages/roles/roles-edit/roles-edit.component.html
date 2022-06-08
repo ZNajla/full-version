@@ -14,20 +14,6 @@
                   <ng-template ngbNavContent>
                     <!-- Account content starts -->
                     <div class="mt-2" id="role">
-                      <!-- Media object starts 
-                      <div class="media">
-                        <img src="assets/img/portrait/small/avatar-s-2.png" alt="user edit avatar"
-                          class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
-                        <div class="media-body">
-                          <h4>Avatar</h4>
-                          <div class="d-flex flex-sm-row flex-column justify-content-start px-0 mb-sm-2">
-                            <button class="btn btn-sm btn-primary mb-1 mb-sm-0">Change</button>
-                            <button class="btn btn-sm bg-light-secondary ml-sm-2">Reset</button>
-                          </div>
-                        </div>
-                      </div>-->
-                      <!-- Media object ends -->
-  
                       <!-- Account form starts -->
                       <form novalidate>
                         <div class="row">
@@ -205,7 +191,7 @@
                                 <ngx-datatable-column name="Actions" prop="id" [width]="50">
                                   <ng-template ngx-datatable-cell-template let-value="value">
                                     <a (click)="onUpdateUser(value)"><i class="ft-edit text-primary cursor-pointer mr-2"></i></a>
-                                    <a (click)="removeUser(value)"><i class="ft-delete text-danger cursor-pointer"></i></a>
+                                    <a (click)="removeUser(value)"><i class="ft-trash-2 text-danger cursor-pointer"></i></a>
                                   </ng-template>  
                                 </ngx-datatable-column>
                               </ngx-datatable>

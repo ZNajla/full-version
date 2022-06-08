@@ -61,7 +61,7 @@ export class RolesListComponent implements OnInit {
       title: '<strong> Are you sure to delete </strong>',
       icon: 'info',
       html: 'Press yes to delete it !!',
-      showCloseButton: true,
+      showCloseButton: false,
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Yes!',
