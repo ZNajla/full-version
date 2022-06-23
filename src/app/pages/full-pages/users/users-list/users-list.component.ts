@@ -57,34 +57,6 @@ export class UsersListComponent implements OnInit {
       console.log("work!!!",this.usersList);
     })
   }
-  /**
-   * filterUpdate
-   *
-   * @param event
-   */
-  filterUpdate(event) {
-    const val = event.target.value.toLowerCase();
-
-    // filter our data
-    const temp = this.tempData.filter(function (d) {
-      return d.userName.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-
-    // update the rows
-    this.rows = temp;
-    // Whenever the filter changes, always go back to the first page
-    this.table.offset = 0;
-  }
-
-  deleteUser(id : string){
-    this.usersService.deleteUser(id).subscribe((data) =>{
-      console.log("user has een deleted");
-      this.getAllUser();
-      this.ngOnInit();
-    },error =>{
-      console.log("error",error);
-    });
-  }
 
   onDeleteUser(id: string){
     swal.fire({
@@ -141,6 +113,27 @@ export class UsersListComponent implements OnInit {
       this.router.navigate([`/users-edit`]);
     })
   }
+
+
+  /**
+   * filterUpdate
+   *
+   * @param event
+   */
+  filterUpdate(event) {
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.tempData.filter(function (d) {
+      return d.userName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+
   /**
    * updateLimit
    *

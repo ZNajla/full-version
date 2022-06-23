@@ -1,10 +1,11 @@
 export class Types{
-    public id : string = "";
-    public nom : string = "";
+    public ID : string = "";
+    public Nom : string = "";
+    public processNom : string = "" ;
     
 
     constructor(id : string, nom: string) {
-      this.id = id;  
-      this.nom = nom;
+      this.ID = id;  
+      this.Nom = nom;
       }
 }

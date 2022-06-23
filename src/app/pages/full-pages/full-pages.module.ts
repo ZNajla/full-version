@@ -38,6 +38,7 @@ import { AddDocumentComponent } from './document/list-document/add-document/add-
 import { ListDocumentComponent } from './document/list-document/list-document.component';
 import { ArchwizardModule } from "angular-archwizard";
 import { ViewDetailsComponent } from './workflow/view-details/view-details.component';
+import { DataTablesRoutingModule } from "app/data-tables/data-tables-routing.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -52,6 +53,7 @@ import { ViewDetailsComponent } from './workflow/view-details/view-details.compo
     SwiperModule,
     PipeModule,
     NgxDatatableModule,
+    DataTablesRoutingModule
   ],
   declarations: [
     GalleryPageComponent,

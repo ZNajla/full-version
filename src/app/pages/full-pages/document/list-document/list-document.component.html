@@ -1,9 +1,8 @@
 <!-- Filter Datatables -->
 <section id="ngx-datatable-filter">
-  
     <div class="row">
       <div class="col-12">
-        <button type="button" class="btn btn-primary mr-2" >
+        <button type="button" class="btn btn-primary mr-2" (click)="addDoc()">
           <span class="d-flex align-items-center">
             <i class="ft-user-plus mr-1"></i>
             <span>Add Document</span>
@@ -34,14 +33,39 @@
               <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
                 [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
                 [columns]="columns">
-                <ngx-datatable-column name="Username" prop="userName" [width]="70"></ngx-datatable-column>
-                <ngx-datatable-column name="Name" prop="fullName" [width]="70"></ngx-datatable-column>
-                <ngx-datatable-column name="Email" prop="email" [width]="150"></ngx-datatable-column>
-                <ngx-datatable-column name="Role" prop="role" [width]="70"></ngx-datatable-column>
+                <ngx-datatable-column name="Document" prop="Titre" [width]="40"></ngx-datatable-column>
+                <ngx-datatable-column name="Uploaded by" prop="user" [width]="120">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="d-flex align-items-center">
+                      <div class="cell-line-height">
+                        <p class="font-small-1 line-height-1 mb-0">{{ value.fullName }}</p>
+                        <span class="text-muted font-small-2">
+                          {{ value.email }}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Date Upload" prop="Date" [width]="70">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value | date: 'dd/MM/yyyy HH:mm'}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="State" prop="CurrentState" [width]="70">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    <div class="badge" [ngClass]="{
+                      'bg-light-primary': value == 'Awaiting',
+                      'bg-light-success': value == 'Validated',
+                      'bg-light-danger': value == 'Rejected',
+                      'bg-light-warning':value == 'In Progress'
+                    }">
+                    {{ value }}
+                  </div>
+                  </ng-template>
+                </ngx-datatable-column>
                 <ngx-datatable-column name="Actions" prop="id" [width]="50">
                   <ng-template ngx-datatable-cell-template let-value="value">
-                    <a (click)="onUpdateUser(value)"><i class="ft-edit text-primary cursor-pointer mr-2"></i></a>
-                    <a (click)="onDeleteUser(value)"><i class="ft-trash-2 text-danger cursor-pointer"></i></a>
+                    <a ><i class="ft-edit text-primary cursor-pointer mr-2"></i></a>
+                    <a><i class="ft-trash-2 text-danger cursor-pointer"></i></a>
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
@@ -53,4 +77,3 @@
     </div>
   </section>
   <!--/ Filter Datatables -->
-  

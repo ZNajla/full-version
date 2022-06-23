@@ -4,10 +4,22 @@ import { RouteInfo } from './vertical-menu.metadata';
 export const ROUTES: RouteInfo[] = [
 
   {
-    path: '/dashboard', title: 'Dashboard', icon: 'ft-home', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [
-     // { path: '/dashboard/dashboard1', title: 'Dashboard 1', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-     //{ path: '/dashboard/dashboard2', title: 'Dashboard 2', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-   ]
+    path: '/dashboard-Admin', title: 'Dashboard', icon: 'ft-home', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'Admin'
+  },
+  {
+    path: '/dashboard-User', title: 'Dashboard', icon: 'ft-home', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'User'
+  },
+  {
+    path: '/users-list', title: 'Users', icon: 'ft-users', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'Admin'
+  },
+  {
+    path: '/roles-list', title: 'Roles', icon: 'ft-clipboard', class: '', badge: '', badgeClass: '', isExternalLink: false ,  submenu: [], owner : 'Admin'
+  },
+  {
+    path: '/workflow-list', title: 'Workflows', icon: 'ft-briefcase', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'Admin'
+  },
+  {
+    path: '/doc-list', title: 'Document', icon: 'ft-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'Admin'
   },
   /*{ path: '/inbox', title: 'Email', icon: 'ft-mail', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
   { path: '/chat', title: 'Chat', icon: 'ft-message-square', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
@@ -130,15 +142,7 @@ export const ROUTES: RouteInfo[] = [
       { path: '/charts/ngx', title: 'NGX', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
     ]
   },*/
-  {
-    path: '/roles-list', title: 'Roles', icon: 'ft-clipboard', class: '', badge: '', badgeClass: '', isExternalLink: false ,  submenu: []
-  },
-  {
-    path: '/users-list', title: 'Users', icon: 'ft-users', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
-  },
-  {
-    path: '/workflow-list', title: 'Workflows', icon: 'ft-users', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
-  },
+  
   /*
   {
     path: '', title: 'Pages', icon: 'ft-copy', class: 'has-sub', badge: '', badgeClass: '', isExternalLink: false,

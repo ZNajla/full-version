@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { RoleService } from 'app/shared/auth/role.service';
@@ -12,7 +12,8 @@ import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-roles-edit',
   templateUrl: './roles-edit.component.html',
-  styleUrls: ['./roles-edit.component.scss']
+  styleUrls: ['./roles-edit.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class RolesEditComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;

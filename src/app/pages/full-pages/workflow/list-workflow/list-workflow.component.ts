@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
-import { AuthService } from 'app/shared/auth/auth.service';
+import * as swalFunctions from '../../../../shared/data/sweet-alerts';
+import swal from 'sweetalert2';
 import { Workflow } from 'app/shared/Models/WorkflowModel';
 import { DetailWorkflowService } from 'app/shared/services/detail-workflow.service';
 import { WorkflowService } from 'app/shared/services/workflow.service';
@@ -14,7 +14,8 @@ import { ViewDetailsComponent } from '../view-details/view-details.component';
   selector: 'app-list-workflow',
   templateUrl: './list-workflow.component.html',
   styleUrls: ['./list-workflow.component.scss',
-              "/assets/sass/libs/datatables.scss",]
+              "/assets/sass/libs/datatables.scss",],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ListWorkflowComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -31,6 +32,8 @@ export class ListWorkflowComponent implements OnInit {
     { name: "description", prop: "description" },
     { name: "Actions", prop: "id" },
   ];
+
+  swal =  swalFunctions;
 
   // private
   private tempData = [];
@@ -71,10 +74,42 @@ export class ListWorkflowComponent implements OnInit {
           console.log(data);
         });
       });
-        this.toastr.success('Process has been added successfuly!','', { closeButton: true });
-        this.ngOnInit();
-  });
-}
+      this.ngOnInit();
+      this.toastr.success('Process has been added successfuly!','', { closeButton: true });
+   });
+  }
+
+  onDeleteProcess(id: string){
+    swal.fire({
+      title: '<strong> Are you sure to delete </strong>',
+      icon: 'info',
+      html: 'Press yes to delete it !!',
+      showCloseButton: false,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Yes!',
+      confirmButtonAriaLabel: 'Thumbs up, great!',
+      cancelButtonText: '<i class="fa fa-thumbs-o-down"> No</i>',
+      cancelButtonAriaLabel: 'Thumbs down',
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger ml-1'
+      }}).then((result) => {
+        if (result.isConfirmed) {
+            this.workflowService.deleteProcess(id).subscribe( data => {
+            console.log(data);
+            this.ngOnInit();
+          });
+          swal.fire(
+            'Deleted!',
+            'The Process has been deleted.',
+            'success'
+          )
+        }
+      })
+  
+  }
    /**
    * updateLimit
    *

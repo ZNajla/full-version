@@ -32,6 +32,9 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   perfectScrollbarEnable = true;
   collapseSidebar = false;
   resizeTimeout;
+  userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  roleUser = this.userInfo.role;
+  isSideBarOpen  = true;
 
   constructor(
     private router: Router,
@@ -113,6 +116,7 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleSidebar() {
+    this.isSideBarOpen = !this.isSideBarOpen;
     let conf = this.config;
     conf.layout.sidebar.collapsed = !this.config.layout.sidebar.collapsed;
     this.configService.applyTemplateConfigChange({ layout: conf.layout });

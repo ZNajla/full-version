@@ -1,9 +1,11 @@
 <!-- Sidebar Header starts -->
 <div class="sidebar-header" *ngIf="config?.layout.menuPosition === 'Side'">
   <div class="logo clearfix">
-    <a [routerLink]="['/dashboard']" class="logo-text float-left">
+    <a class="logo-text float-left">
       <div class="logo-img">
-        <img src="../assets/img/mon-image.png" width="210"/>
+        <img src="../assets/img/mon-image.png" width="240" *ngIf="isSideBarOpen == true"/>
+        <img src="../assets/img/favicon.png" width="40" *ngIf="isSideBarOpen == false"/>
+
       </div>
     </a>
     <a class="nav-toggle d-none d-lg-none d-xl-block" id="sidebarToggle" href="javascript:;" (click)="toggleSidebar()">
@@ -18,7 +20,7 @@
   </div>
 </div>
 <!-- Sidebar Header Ends -->
-
+<hr>
 <!-- Sidebar Content starts -->
 <div class="sidebar-content main-menu-content" [perfectScrollbar] [disabled]="!perfectScrollbarEnable">
   <div class="nav-container">
@@ -28,7 +30,7 @@
         level="{{ level + 1 }}" [hasSub]="menuItem.class.includes('has-sub') ? true : false" [ngClass]="{
           'has-sub': menuItem.class.includes('has-sub') ? true : false
         }" [routerLinkActive]="menuItem.submenu.length != 0 ? 'open' : 'active'"
-        [routerLinkActiveOptions]="{ exact: false }">
+        [routerLinkActiveOptions]="{ exact: false }" [hidden]="menuItem.owner != roleUser">
         <a appSidebarAnchorToggle *ngIf="menuItem.submenu.length > 0 && !menuItem.isExternalLink">
           <i [ngClass]="[menuItem.icon]"></i>
           <span class="menu-title">{{ menuItem.title | translate }}</span>

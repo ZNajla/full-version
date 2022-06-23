@@ -1,3 +1,4 @@
+import { Role } from 'app/shared/Models/RoleModel';
 import { Routes, RouterModule } from '@angular/router';
 
 //Route for content layout with sidebar, navbar and footer.
@@ -9,7 +10,10 @@ export const Full_ROUTES: Routes = [
   },
   {
     path: 'calendar',
-    loadChildren: () => import('../../calendar/calendar.module').then(m => m.CalendarsModule)
+    loadChildren: () => import('../../calendar/calendar.module').then(m => m.CalendarsModule),
+    data : {
+      Role : 'Admin'
+    }
   },
   {
     path: 'charts',

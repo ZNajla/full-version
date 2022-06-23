@@ -8,15 +8,15 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      /*{
-        path: 'dashboard1',
+      {
+        path: 'dashboard-Admin',
         component: Dashboard1Component,
         data: {
           title: 'Dashboard 1'
         }
-      },*/
+      },
       {
-        path: 'dashboard',
+        path: 'dashboard-User',
         component: Dashboard2Component,
         data: {
           title: 'Dashboard 2'

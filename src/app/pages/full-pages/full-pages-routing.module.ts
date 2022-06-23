@@ -1,3 +1,4 @@
+import { Role } from 'app/shared/Models/RoleModel';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -19,6 +20,8 @@ import { RolesListComponent } from './roles/roles-list/roles-list.component';
 import { RolesEditComponent } from './roles/roles-edit/roles-edit.component';
 import { ListWorkflowComponent } from './workflow/list-workflow/list-workflow.component';
 import { AddWorkflowComponent } from './workflow/add-workflow/add-workflow.component';
+import { ListDocumentComponent } from './document/list-document/list-document.component';
+import { AddDocumentComponent } from './document/list-document/add-document/add-document.component';
 
 const routes: Routes = [
   {
@@ -104,7 +107,7 @@ const routes: Routes = [
         component: RolesListComponent,
         data: {
           title: 'List',
-          roles:  ['Admin']
+          role : 'Admin',
         }
       },
       {
@@ -120,7 +123,7 @@ const routes: Routes = [
         component: UsersAddComponent,
         data: {
           title: 'Add',
-          roles:  ['Admin']
+          Role : 'Admin',
         }
       },
       {
@@ -161,6 +164,21 @@ const routes: Routes = [
         data: {
           title: 'Add',
           roles:  ['Admin']
+        }
+      },
+      {
+        path: 'doc-list',
+        component: ListDocumentComponent,
+        data: {
+          title: 'List',
+          roles:  ['Admin']
+        }
+      },
+      {
+        path: 'add-doc',
+        component: AddDocumentComponent,
+        data: {
+          title: 'Add',
         }
       }
     ]

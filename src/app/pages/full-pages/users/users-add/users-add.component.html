@@ -11,7 +11,7 @@
           <p>Fill the below form to create a new account.</p>
           <form [formGroup]="registerForm">
             <div class="form-group">
-              <input type="text" formControlName="fullName" class="form-control mb-2" placeholder="Name"
+              <input type="text" formControlName="fullName" class="form-control mb-2 round" placeholder="Name"
                 [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.fullName.invalid, 'is-valid': registerFormSubmitted && !rf.fullName.invalid }"
                 required />
               <div *ngIf=" registerFormSubmitted && (rf.fullName.invalid || rf.fullName.errors?.required)"
@@ -20,7 +20,7 @@
               </div>
             </div>
             <div class="form-group">
-              <input type="text" formControlName="userName" class="form-control mb-2" placeholder="User Name"
+              <input type="text" formControlName="userName" class="form-control mb-2 round" placeholder="User Name"
                 [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.userName.invalid, 'is-valid': registerFormSubmitted && !rf.userName.invalid }"
                 required />
               <div *ngIf=" registerFormSubmitted && (rf.userName.invalid || rf.userName.errors?.required) "
@@ -29,7 +29,7 @@
               </div>
             </div>
             <div class="form-group">
-              <input type="text" formControlName="adresse" class="form-control mb-2" placeholder="Adresse" [ngClass]="{
+              <input type="text" formControlName="adresse" class="form-control mb-2 round" placeholder="Adresse" [ngClass]="{
                   'is-invalid': registerFormSubmitted && rf.adresse.invalid,
                   'is-valid': registerFormSubmitted && !rf.adresse.invalid
                 }" required />
@@ -41,7 +41,7 @@
               </div>
             </div>
             <div class="form-group">
-              <input type="phone" id="users-edit-phone" class="form-control" placeholder="(+216)12345678" required
+              <input type="phone" id="users-edit-phone" class="form-control round" placeholder="(+216)12345678" required
                 formControlName="phoneNumber" [ngClass]="{
                   'is-invalid': registerFormSubmitted && rf.phoneNumber.invalid,
                   'is-valid': registerFormSubmitted && !rf.phoneNumber.invalid

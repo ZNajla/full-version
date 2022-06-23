@@ -58,7 +58,12 @@ export class LoginPageComponent {
         console.log("responce code ok");
         localStorage.setItem("userInfo",JSON.stringify(data.dateSet));
         this.spinner.hide();
-        this.router.navigate(['/dashboard']);
+        if(data.dateSet.role == "Admin"){
+          this.router.navigate(['/dashboard-Admin']);
+        }else{
+          this.router.navigate(['/dashboard-User'])
+        }
+        
       }else{
         this.isLoginFailed = true;
         this.ErrorMessage = data.responseMessage ;

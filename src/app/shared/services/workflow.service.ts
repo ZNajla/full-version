@@ -61,4 +61,12 @@ export class WorkflowService {
         })
       );
   }
+
+  public deleteProcess(id : string){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+    return this.httpClient.delete<ResponseModel>(this.url + `/DeleteProcessus/${id}`,{ headers : headers});
+  }
 }

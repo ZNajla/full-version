@@ -82,4 +82,9 @@ export class AuthService {
       return true;
     }
   }
+
+  getRole(){
+    let roleUser = JSON.parse(localStorage.getItem('userInfo.role'));
+    return roleUser;
+  }
 }

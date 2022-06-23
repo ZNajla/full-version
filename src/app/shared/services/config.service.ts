@@ -49,14 +49,14 @@ export class ConfigService {
           hidden: true
         },
         navbar: {
-          type: 'Static'
+          type: 'Fixed'
         },
         sidebar: {
           collapsed: false,
           size: "sidebar-lg",
           backgroundColor: "man-of-steel",
-          backgroundImage: true,
-          backgroundImageURL: "assets/img/sidebar-bg/01.jpg"
+          backgroundImage: false,
+          backgroundImageURL: ""
         }
       }
     };

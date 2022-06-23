@@ -62,7 +62,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       isShow => {
         this.hideSidebar = !isShow;
       });
-
   }
 
   ngOnInit() {

@@ -70,8 +70,14 @@
                                         </div>
                                     </div>
                                 </div>  
+                                <div class="justify-content-end" >
+                                    <button type="button" class="btn gradient-mint mr-1" ngbPopover="Add another Action"
+                                    triggers="mouseenter:mouseleave" (click)="AddDetail()">
+                                        ADD Other Step
+                                    </button>
+                                </div>
                             </div>
-                            
+                            <br/>
                             <div class="row justify-content-center">
                                 <table class="table text-center m-0" *ngIf="tempdata.length>0" >
                                     <thead>
@@ -107,10 +113,6 @@
                                     <span style="margin-right:10px;">
                                         <i class="ft-chevron-left"></i>
                                     </span> Previous
-                                </button>
-                                <button type="button" class="btn gradient-mint mr-1" ngbPopover="Add another Action"
-                                triggers="mouseenter:mouseleave" (click)="AddDetail()">
-                                    ADD Other Step
                                 </button>
                                 <button uiSref="result" type="button" class="btn btn-success" awResetWizard (click)="SubmitForms()">
                                     Finish
