@@ -4,12 +4,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { LayoutService } from '../services/layout.service';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../services/config.service';
-import { DOCUMENT } from '@angular/common';
-import { CustomizerService } from '../services/customizer.service';
 import { FormControl } from '@angular/forms';
 import { LISTITEMS } from '../data/template-search';
 import { Router } from '@angular/router';
 import { User } from '../Models/UserModel';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ResponseModel } from '../Models/ResponseModel';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: "app-navbar",
@@ -51,7 +52,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(public translate: TranslateService,
     private layoutService: LayoutService,
     private router: Router,
-    private configService: ConfigService, private cdr: ChangeDetectorRef , private authService : AuthService) {
+    private configService: ConfigService, private cdr: ChangeDetectorRef , private httpClient: HttpClient) {
 
     const browserLang: string = translate.getBrowserLang();
     translate.use(browserLang.match(/en|es|pt|de/) ? browserLang : "en");
@@ -78,8 +79,25 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem("userInfo");
-    this.router.navigate(['/login']);
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+    console.log("Logout");
+    let userid = userInfo.id;
+    console.log(userid);
+    return this.httpClient.put<ResponseModel>(`https://localhost:7268/api/User/Logout/${userid}`, { headers: headers }).subscribe(
+      (res)=> {
+        console.log(res);
+        if(res.responseCode == 1){
+          console.log(res.responseMessage);
+          localStorage.removeItem("userInfo");
+          this.router.navigate(['/login']);
+        }else{
+          console.log(res.responseMessage);
+        }
+      }
+    );
   }
   
   ngAfterViewInit() {

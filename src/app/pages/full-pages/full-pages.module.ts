@@ -39,6 +39,11 @@ import { ListDocumentComponent } from './document/list-document/list-document.co
 import { ArchwizardModule } from "angular-archwizard";
 import { ViewDetailsComponent } from './workflow/view-details/view-details.component';
 import { DataTablesRoutingModule } from "app/data-tables/data-tables-routing.module";
+import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component';
+import { ViewDocumentComponent } from './document/view-document/view-document.component';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { MyDocumentComponent } from './document/my-document/my-document.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -52,8 +57,9 @@ import { DataTablesRoutingModule } from "app/data-tables/data-tables-routing.mod
     NgbModule,
     SwiperModule,
     PipeModule,
+    NgApexchartsModule,
     NgxDatatableModule,
-    DataTablesRoutingModule
+    DataTablesRoutingModule,
   ],
   declarations: [
     GalleryPageComponent,
@@ -81,6 +87,9 @@ import { DataTablesRoutingModule } from "app/data-tables/data-tables-routing.mod
     AddDocumentComponent,
     ListDocumentComponent,
     ViewDetailsComponent,
+    ListTasksComponent,
+    ViewDocumentComponent,
+    MyDocumentComponent,
   ],
 })
 export class FullPagesModule {}

@@ -28,9 +28,10 @@ export class UsersService {
           let userList = new Array<User>();
           if (res.responseCode == ResponseCode.OK) {
             if (res.dateSet) {
+              console.log(res.dateSet);
               res.dateSet.map((x: User) => {
                 userList.push(
-                  new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse, x.role )
+                  new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse, x.gender , x.birthDate , x.facebook , x.google , x.linkedin ,x.lastTimeLogedIn ,x.role )
                 );
               });
             }
@@ -55,7 +56,7 @@ export class UsersService {
               res.dateSet.map((x: User) => {
                 if(x.role == null){
                   userList.push(
-                    new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse, x.role )
+                    new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse,  x.gender , x.birthDate , x.facebook , x.google , x.linkedin ,x.lastTimeLogedIn , x.role )
                   );
                 }
               });
@@ -78,7 +79,7 @@ export class UsersService {
           if (res.responseCode == ResponseCode.OK) {
             console.log(res);
             if (res.dateSet) {
-              this.user = new User(res.dateSet.id,res.dateSet.fullName, res.dateSet.email, res.dateSet.userName,res.dateSet.phoneNumber,res.dateSet.adresse, res.dateSet.role );
+              this.user = new User(res.dateSet.id,res.dateSet.fullName, res.dateSet.email, res.dateSet.userName,res.dateSet.phoneNumber,res.dateSet.adresse,  res.dateSet.gender , res.dateSet.birthDate , res.dateSet.facebook , res.dateSet.google , res.dateSet.linkedin ,res.dateSet.lastTimeLogedIn , res.dateSet.role );
             }
           }
           return this.user;

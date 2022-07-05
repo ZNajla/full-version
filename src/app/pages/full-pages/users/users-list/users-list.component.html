@@ -36,7 +36,16 @@
               <ngx-datatable-column name="Username" prop="userName" [width]="70"></ngx-datatable-column>
               <ngx-datatable-column name="Name" prop="fullName" [width]="70"></ngx-datatable-column>
               <ngx-datatable-column name="Email" prop="email" [width]="150"></ngx-datatable-column>
-              <ngx-datatable-column name="Role" prop="role" [width]="70"></ngx-datatable-column>
+              <ngx-datatable-column name="Role" prop="role" [width]="70">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="badge" [ngClass]="{
+                    'bg-light-primary': value == 'User',
+                    'bg-light-warning': value != 'User'
+                  }">
+                  {{ value }}
+                </div>
+                </ng-template>
+              </ngx-datatable-column>
               <ngx-datatable-column name="Actions" prop="id" [width]="50">
                 <ng-template ngx-datatable-cell-template let-value="value">
                   <a (click)="onUpdateUser(value)"><i class="ft-edit text-primary cursor-pointer mr-2"></i></a>

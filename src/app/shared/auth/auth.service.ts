@@ -26,6 +26,12 @@ export class AuthService {
       Email: form.email,
       PhoneNumber: form.phoneNumber,
       Adresse: form.adresse,
+      Gender: form.gender,
+      BirthDate: form.birthDate,
+      Facebook: form.facebook,
+      Google: form.google,
+      Linkedin: form.linkedin,
+      LastTimeLogedIn: form.lastTimeLogedIn,
       Role: form.role, 
       Password: form.password,
     };
@@ -58,19 +64,25 @@ export class AuthService {
         return res;
       })
     );
-
-    //uncomment above firebase auth code and remove this temp code
-    return new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        resolve(true);
-      }, 1000);
-    });
-
   }
 
   logout() {
-    localStorage.removeItem("userInfo");
-    this.router.navigate(['/Login']);
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+    return this.httpClient.put<ResponseModel>(this.url + `/Logout/${userInfo.id}`,{headers : headers}).pipe(
+      map((res)=> {
+        if(res.responseCode == 1){
+          console.log(res.responseMessage);
+          localStorage.removeItem("userInfo");
+          this.router.navigate(['/Login']);
+        }else{
+          console.log(res.responseMessage);
+        }
+      }
+      ) 
+    );
   }
 
   

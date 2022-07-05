@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
-import { Document } from 'app/shared/Models/DocModel';
+import { Documents } from 'app/shared/Models/DocModel';
 import { DocumentService } from 'app/shared/services/document.service';
-import { TypesService } from 'app/shared/services/types.service';
+import { TasksService } from 'app/shared/services/tasks.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { ViewDocumentComponent } from '../view-document/view-document.component';
 import { AddDocumentComponent } from './add-document/add-document.component';
 
 @Component({
@@ -19,7 +20,7 @@ export class ListDocumentComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
 
-  public docList : Document[] = [];
+  public docList : Documents[] = [];
    // row data
    public rows = [];
    public ColumnMode = ColumnMode;
@@ -37,14 +38,14 @@ export class ListDocumentComponent implements OnInit {
 
    // private
   private tempData = [];
-  constructor(private docService : DocumentService , private typesService : TypesService, private modalService: NgbModal , public toastr: ToastrService ) {
+  constructor(private docService : DocumentService , private tacheService:TasksService , private modalService: NgbModal , public toastr: ToastrService ) {
     this.tempData = this.docList ;
    }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
   getAllDocs(){
-    this.docService.getAllDocs().subscribe((data:Document[])=>{
+    this.docService.getAllDocs().subscribe((data:Documents[])=>{
     this.docList = data;
     this.rows = data ;
     this.tempData = data ;
@@ -53,17 +54,31 @@ export class ListDocumentComponent implements OnInit {
   }
 
   addDoc() {
-    const modalRef = this.modalService.open(AddDocumentComponent , {size : "xl"});
+    const modalRef = this.modalService.open(AddDocumentComponent , {size : "xl" , animation: true});
     modalRef.result.then((result) => {
       console.log("resultat form model : "+result);
       const res = this.docService.addDoc(result) as Observable<any>;
       res.subscribe((data) =>{
-        this.toastr.success('User has been added successfuly!','', { closeButton: true });
-        
+        this.toastr.success('Document has been added successfuly!','', { closeButton: true });
+        this.docService.addDocState(data.dateSet).subscribe((data2) => {
+          console.log(data2.responseMessage);
+        });
+        this.tacheService.addTache(data.dateSet).subscribe((data3) =>{
+          console.log(data3.responseMessage);
+        })
+        console.log(data);
         this.ngOnInit();
       },error => {
         console.log("error",error);
       })
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  viewDoc() {
+    const modalRef = this.modalService.open(ViewDocumentComponent , {size : "xl"});
+    modalRef.result.then((result) => {
     }).catch((error) => {
       console.log(error);
     });

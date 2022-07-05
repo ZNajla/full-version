@@ -17,8 +17,9 @@ import { AddRoleModalComponent } from './add-role-modal/add-role-modal.component
   styleUrls: ['./roles-list.component.scss',
               "/assets/sass/libs/datatables.scss",
               ],
-              encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
 })
+
 export class RolesListComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
 

@@ -11,6 +11,11 @@
             <p>Fill the below form to add new document.</p>
             <form [formGroup]="docForm">
                 <div class="form-row">
+                  <div class="form-group mb-2">
+                    <label for="basic-form-8">Select File</label>
+                    <!-- (click)="file.click()" -->
+                    <input type="file" #file class="form-control-file" id="basic-form-8" (change)="uploadFile(file.files)">
+                  </div>
                   <div class="col-md-6 col-12">
                     <div class="form-group mb-2">
                       <label for="basic-form-1">Titre document</label>
@@ -53,10 +58,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group mb-2">
-                  <label for="basic-form-8">Select File</label>
-                  <!-- (click)="file.click()" -->
-                  <input type="file" #file class="form-control-file" id="basic-form-8" (change)="uploadFile(file.files)">
+                <div class="col-md-6 col-12">
+                  <div class="form-group mb-2">
+                    <div class="checkbox">
+                      <input type="checkbox" id="checkbox2" formControlName="CurrentState">
+                      <label for="checkbox2"><span>Draft</span></label>
+                    </div>
+                  </div>
                 </div>
                 <button type="button" class="btn btn-primary mr-2" (click)="submitDoc()"><i class="ft-check-square mr-1"></i>Ajouter</button>
                 <button type="button"  class="btn btn-secondary"><i class="ft-x mr-1"></i>Annuler</button>

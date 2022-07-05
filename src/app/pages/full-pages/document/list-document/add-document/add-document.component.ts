@@ -24,7 +24,8 @@ export class AddDocumentComponent implements OnInit {
     NbPage: ['', Validators.required],
     MotCle: ['', Validators.required],
     Version: ['', [Validators.required]],
-    TypesId: ['', Validators.required]
+    TypesId: ['', Validators.required],
+    CurrentState : [false]
   });
 
   progress: number;
@@ -32,6 +33,7 @@ export class AddDocumentComponent implements OnInit {
   fileName : string;
   fileNbPage : number;
   filePath : string;
+  formData = new FormData();
 
   constructor(public activeModal: NgbActiveModal , private typesService : TypesService , private docService : DocumentService ,private formBuilder: FormBuilder , public router: Router , private httpClient: HttpClient) { }
 
@@ -48,40 +50,45 @@ export class AddDocumentComponent implements OnInit {
     }
     const reader = new FileReader();
     let fileToUpload = <File>files[0];
-    const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
+    this.formData.append('file', fileToUpload, fileToUpload.name);
     this.fileName = fileToUpload.name;
     this.docForm.controls['Titre'].setValue(this.fileName);
     this.fileNbPage = fileToUpload.size;
     console.log(this.fileNbPage);
-    this.httpClient.post('https://localhost:7268/api/Document/upload', formData, {reportProgress: true, observe: 'events'})
-      .subscribe({
-        next: (event) => {
-          console.log(event);
-        if (event.type === HttpEventType.UploadProgress)
-          this.progress = Math.round(100 * event.loaded / event.total);
-        else if (event.type === HttpEventType.Response) {
-          console.log('Upload success.');
-          this.filePath = event.body.toString() ;
-          console.log(this.filePath);
-          // this.onUploadFinished.emit(event.body);
-        }
-      },
-      error: (err: HttpErrorResponse) => console.log(err)
-    });
   }
 
   submitDoc(){
-    let result = {
-      file : this.filePath ,
-      Reference : this.docForm.controls['Reference'].value,
-      Titre : this.fileName,
-      NbPage : this.docForm.controls['NbPage'].value,
-      MotCle : this.docForm.controls['MotCle'].value,
-      Version : this.docForm.controls['Version'].value,
-      TypesId : this.docForm.controls['TypesId'].value,
-    };
-    this.activeModal.close(result);
+    console.log(this.docForm.controls['CurrentState'].value);
+    this.httpClient.post<ResponseModel>('https://localhost:7268/api/Document/upload', this.formData)
+    .subscribe({
+      next: (event) => {
+        console.log(event);
+        if(event.responseCode == 1){
+          console.log('Upload success.');
+          this.filePath = event.dateSet ;
+          console.log(this.filePath);
+           let CurrentState : number ;
+          if(this.docForm.controls['CurrentState'].value == true){
+            CurrentState = 1;
+          }else{
+            CurrentState = 0;
+          }
+          let result = {
+            file : this.filePath ,
+            Reference : this.docForm.controls['Reference'].value,
+            Titre : this.fileName,
+            NbPage : this.docForm.controls['NbPage'].value,
+            MotCle : this.docForm.controls['MotCle'].value,
+            Version : this.docForm.controls['Version'].value,
+            CurrentState : CurrentState ,
+            TypesId : this.docForm.controls['TypesId'].value,
+          };
+          this.activeModal.close(result);
+        }else{
+          console.log(event.responseMessage);
+        }}
+  });
+   
   }
 
   ngOnInit(): void {

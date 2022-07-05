@@ -19,7 +19,22 @@ export const ROUTES: RouteInfo[] = [
     path: '/workflow-list', title: 'Workflows', icon: 'ft-briefcase', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'Admin'
   },
   {
-    path: '/doc-list', title: 'Document', icon: 'ft-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'Admin'
+    path: '', title: 'Document', icon: 'ft-book', class: 'has-sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
+      { path: '/doc-list', title: 'All Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'Admin'},
+      { path: '/my-doc', title: 'My Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'Admin'},
+    ], owner : 'Admin'
+  },
+  {
+    path: '/tasks-list', title: 'Tasks', icon: 'ft-file-text', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'Admin'
+  },
+  {
+    path: '', title: 'Document', icon: 'ft-book', class: 'has-sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
+      { path: '/doc-list', title: 'All Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'User'},
+      { path: '/my-doc', title: 'My Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'User'},
+    ], owner : 'User'
+  },
+  {
+    path: '/tasks-list', title: 'Tasks', icon: 'ft-file-text', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], owner : 'User'
   },
   /*{ path: '/inbox', title: 'Email', icon: 'ft-mail', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
   { path: '/chat', title: 'Chat', icon: 'ft-message-square', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
@@ -197,4 +212,4 @@ export const ROUTES: RouteInfo[] = [
 /*  },
   { path: 'https://pixinvent.com/apex-angular-4-bootstrap-admin-template/documentation', title: 'Documentation', icon: 'ft-book', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
   { path: 'https://pixinvent.ticksy.com/', title: 'Support', icon: 'ft-life-buoy', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },*/
-];
+]; 

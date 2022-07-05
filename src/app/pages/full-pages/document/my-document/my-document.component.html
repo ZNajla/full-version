@@ -1,14 +1,14 @@
 <!-- Filter Datatables -->
 <section id="ngx-datatable-filter">
     <div class="row">
-      <!-- <div class="col-12">
+      <div class="col-12">
         <button type="button" class="btn btn-primary mr-2" (click)="addDoc()">
           <span class="d-flex align-items-center">
             <i class="ft-user-plus mr-1"></i>
             <span>Add Document</span>
           </span>
         </button>
-      </div> -->
+      </div>
       <div class="col-12">
         <div class="card">
           <div class="card-content">
@@ -63,9 +63,10 @@
                   </div>
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Actions" prop="id" [width]="50">
+                <ngx-datatable-column name="Actions" prop="ID" [width]="50">
                   <ng-template ngx-datatable-cell-template let-value="value">
                     <a><i class="ft-more-vertical text-primary cursor-pointer mr-2"></i></a>
+                    <a (click)="onDeleteDoc(value)" *ngIf="isDraft(value)"><i class="ft-trash-2 text-danger cursor-pointer"></i></a>
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>

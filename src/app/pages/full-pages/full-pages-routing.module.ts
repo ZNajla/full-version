@@ -22,6 +22,9 @@ import { ListWorkflowComponent } from './workflow/list-workflow/list-workflow.co
 import { AddWorkflowComponent } from './workflow/add-workflow/add-workflow.component';
 import { ListDocumentComponent } from './document/list-document/list-document.component';
 import { AddDocumentComponent } from './document/list-document/add-document/add-document.component';
+import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component';
+import { ViewDocumentComponent } from './document/view-document/view-document.component';
+import { MyDocumentComponent } from './document/my-document/my-document.component';
 
 const routes: Routes = [
   {
@@ -179,6 +182,27 @@ const routes: Routes = [
         component: AddDocumentComponent,
         data: {
           title: 'Add',
+        }
+      },
+      {
+        path: 'my-doc',
+        component: MyDocumentComponent,
+        data: {
+          title: 'List',
+        }
+      },
+      {
+        path: 'tasks-list',
+        component: ListTasksComponent,
+        data: {
+          title: 'List',
+        }
+      },
+      {
+        path: 'Document-view',
+        component: ViewDocumentComponent,
+        data: {
+          title: 'List',
         }
       }
     ]

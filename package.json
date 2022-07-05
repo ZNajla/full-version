@@ -62,6 +62,7 @@
     "ng2-dragula": "2.1.1",
     "ng2-file-upload": "1.4.0",
     "ng2-nouislider": "1.8.2",
+    "ng2-pdf-viewer": "^9.0.0",
     "ngx-chips": "2.2.2",
     "ngx-custom-validators": "8.0.0",
     "ngx-device-detector": "2.0.4",
