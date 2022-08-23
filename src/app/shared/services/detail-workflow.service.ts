@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ResponseModel } from '../Models/ResponseModel';
 import { ResponseCode } from '../Enums/ResponseCode';
+import { ProcessSteps } from '../Models/ProcessSteps';
 
 export interface detail {
   action : string ;
@@ -14,6 +15,7 @@ export interface detail {
   user : string ;
   processusId : string ;
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -58,17 +60,20 @@ export class DetailWorkflowService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${userInfo?.token}`,
     });
-    return this.httpClient
-      .get<ResponseModel>(this.url + `/GetDetailProcess/${id}`, { headers: headers })
+    return this.httpClient.get<ResponseModel>(this.url + `/GetDetailProcess/${id}`, { headers: headers })
       .pipe(
         map((res) => {
-          let detailsList = new Array<any>();
+          let detailsList = new Array<ProcessSteps>();
+          console.log(res);
           if (res.responseCode == ResponseCode.OK) {
             if (res.dateSet) {
-              return res.dateSet.map((x: any) => {
-                  detailsList.push(x);
+              res.dateSet.map((x: any) => {
+                console.log(x);
+                detailsList.push( new ProcessSteps(x.step , x.action, x.username , x.userEmail));
               });
             }
+          }else{
+            console.log(res.responseMessage);
           }
           console.log(detailsList);
           return detailsList;

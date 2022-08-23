@@ -3,7 +3,6 @@ import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from "ng-chartist";
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 import { UsersService } from 'app/shared/auth/users.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'app/shared/Models/UserModel';
 import { WorkflowService } from 'app/shared/services/workflow.service';
@@ -220,7 +219,7 @@ export class Dashboard1Component {
     };
     // Line chart configuration Ends
 
-    constructor(private usersService:UsersService , private router:Router,public toastr: ToastrService , private workflowService:WorkflowService , private docService : DocumentService) {
+    constructor(private usersService:UsersService ,public toastr: ToastrService , private workflowService:WorkflowService , private docService : DocumentService) {
     }
 
     //Public methods
@@ -228,21 +227,18 @@ export class Dashboard1Component {
     getAllUser(){
       this.usersService.getAllUsers().subscribe((data:User[])=>{
       this.numberOfUsers = data.length;
-        console.log("work!!!",this.numberOfUsers);
       })
     }
 
     getAllWorkFlows(){
       this.workflowService.getAllWorkFlows().subscribe((data:Workflow[])=>{
       this.numberOfProcess = data.length ;
-      console.log("work!!!",this.numberOfProcess);
       })
     }
 
     getAllDocs(){
       this.docService.getAllDocs().subscribe((data:Documents[])=>{
       this.numberOfDocument = data.length ;
-        console.log("work!!!",this.numberOfDocument);
       })
     }
 

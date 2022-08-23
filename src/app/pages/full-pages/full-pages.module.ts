@@ -10,16 +10,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { SwiperModule } from "ngx-swiper-wrapper";
 import { PipeModule } from "app/shared/pipes/pipe.module";
 
-import { GalleryPageComponent } from "./gallery/gallery-page.component";
-import { InvoicePageComponent } from "./invoice/invoice-page.component";
-import { HorizontalTimelinePageComponent } from "./timeline/horizontal/horizontal-timeline-page.component";
-import { HorizontalTimelineComponent } from "./timeline/horizontal/component/horizontal-timeline.component";
-import { TimelineVerticalCenterPageComponent } from "./timeline/vertical/timeline-vertical-center-page/timeline-vertical-center-page.component";
-import { TimelineVerticalLeftPageComponent } from "./timeline/vertical/timeline-vertical-left-page/timeline-vertical-left-page.component";
-import { TimelineVerticalRightPageComponent } from "./timeline/vertical/timeline-vertical-right-page/timeline-vertical-right-page.component";
 import { UserProfilePageComponent } from "./user-profile/user-profile-page.component";
-import { SearchComponent } from "./search/search.component";
-import { FaqComponent } from "./faq/faq.component";
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
 import { UsersListComponent } from "./users/users-list/users-list.component";
 import { UsersViewComponent } from "./users/users-view/users-view.component";
@@ -33,16 +24,17 @@ import { AddRoleModalComponent } from './roles/roles-list/add-role-modal/add-rol
 import { AddWorkflowComponent } from './workflow/add-workflow/add-workflow.component';
 import { ListWorkflowComponent } from './workflow/list-workflow/list-workflow.component';
 import { ListTypesComponent } from './types/list-types/list-types.component';
-import { AddTypeModalComponent } from './types/list-Types/add-type-modal/add-type-modal.component';
 import { AddDocumentComponent } from './document/list-document/add-document/add-document.component';
 import { ListDocumentComponent } from './document/list-document/list-document.component';
 import { ArchwizardModule } from "angular-archwizard";
 import { ViewDetailsComponent } from './workflow/view-details/view-details.component';
-import { DataTablesRoutingModule } from "app/data-tables/data-tables-routing.module";
 import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component';
 import { ViewDocumentComponent } from './document/view-document/view-document.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { MyDocumentComponent } from './document/my-document/my-document.component';
+import { AddTypeComponent } from './types/add-type/add-type.component';
+import { ViewTaskComponent } from './tasks/view-task/view-task.component';
+import { MatchHeightModule } from "app/shared/directives/match-height.directive";
 
 @NgModule({
   imports: [
@@ -59,19 +51,10 @@ import { MyDocumentComponent } from './document/my-document/my-document.componen
     PipeModule,
     NgApexchartsModule,
     NgxDatatableModule,
-    DataTablesRoutingModule,
+    MatchHeightModule
   ],
   declarations: [
-    GalleryPageComponent,
-    InvoicePageComponent,
-    HorizontalTimelinePageComponent,
-    HorizontalTimelineComponent,
-    TimelineVerticalCenterPageComponent,
-    TimelineVerticalLeftPageComponent,
-    TimelineVerticalRightPageComponent,
     UserProfilePageComponent,
-    SearchComponent,
-    FaqComponent,
     AccountSettingsComponent,
     UsersListComponent,
     UsersViewComponent,
@@ -83,13 +66,14 @@ import { MyDocumentComponent } from './document/my-document/my-document.componen
     AddWorkflowComponent,
     ListWorkflowComponent,
     ListTypesComponent,
-    AddTypeModalComponent,
     AddDocumentComponent,
     ListDocumentComponent,
     ViewDetailsComponent,
     ListTasksComponent,
     ViewDocumentComponent,
     MyDocumentComponent,
+    AddTypeComponent,
+    ViewTaskComponent,
   ],
 })
 export class FullPagesModule {}

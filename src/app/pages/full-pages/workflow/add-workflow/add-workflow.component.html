@@ -3,38 +3,44 @@
         <div class="card-content d-flex align-items-center justify-content-center">
             <div class="card-body">
                 <aw-wizard #wizard [navBarLayout]="'large-empty-symbols'">
-                    <aw-wizard-step [stepTitle]="'Process Creation'" [navigationSymbol]="{ symbol: '&#xf02b;', fontFamily: 'FontAwesome' }">
+                    <aw-wizard-step [stepTitle]="'Process Creation'"
+                        [navigationSymbol]="{ symbol: '&#xf02b;', fontFamily: 'FontAwesome' }">
                         <form [formGroup]="workFlowForm" class="editForm" novalidate>
-                            <br/>
+                            <br />
                             <div class='row'>
                                 <div class='col-12'>
                                     <div class="row">
                                         <div class='col-12 col-sm-6'>
                                             <div class="form-group">
                                                 <label class="form-control-label" for="firstname">WorkFlow Name</label>
-                                                <input class="form-control input-md" formControlName="workflowname" required id="workflowname" name="workflowname" type="text" [ngClass]="{ 'is-invalid': workFlowFormSubmitted && rf.workflowname.invalid, 'is-valid': workFlowFormSubmitted && !rf.workflowname.invalid }">
-                                                <div *ngIf="workFlowFormSubmitted &&  (rf.workflowname.errors?.phone )" class="help-block mt-1 text-danger"> 
-                                                    <i class="ft-alert-circle align-middle"></i> Phone Number must be a valid</div>
-                                                    <div *ngIf="workFlowFormSubmitted && (rf.workflowname.invalid || rf.workflowname.errors?.required)"
-                                                class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Process Name is
-                                                required</div>
+                                                <input class="form-control input-md" formControlName="workflowname"
+                                                    required id="workflowname" name="workflowname" type="text"
+                                                    [ngClass]="{ 'is-invalid': workFlowFormSubmitted && rf.workflowname.invalid, 'is-valid': workFlowFormSubmitted && !rf.workflowname.invalid }">
+                                                <div *ngIf="workFlowFormSubmitted && (rf.workflowname.invalid || rf.workflowname.errors?.required)"
+                                                    class="help-block mt-1 text-danger"> <i
+                                                        class="ft-alert-circle align-middle"></i> Process Name is
+                                                    required
+                                                </div>
                                             </div>
                                         </div>
                                         <div class='col-12 col-sm-6'>
                                             <div class="form-group">
                                                 <label class="form-control-label" for="lastname">Description</label>
-                                                <input class="form-control input-md" formControlName="description" required id="description" name="description" type="text" [ngClass]="{ 'is-invalid': workFlowFormSubmitted && rf.description.invalid, 'is-valid': workFlowFormSubmitted && !rf.description.invalid }">
-                                                <div *ngIf="workFlowFormSubmitted &&  (rf.description.errors?.phone )" class="help-block mt-1 text-danger"> 
-                                                    <i class="ft-alert-circle align-middle"></i> Phone Number must be a valid</div>
-                                                    <div *ngIf="workFlowFormSubmitted && (rf.description.invalid || rf.description.errors?.required)"
-                                                class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Description is
-                                                required</div>
+                                                <input class="form-control input-md" formControlName="description"
+                                                    required id="description" name="description" type="text"
+                                                    [ngClass]="{ 'is-invalid': workFlowFormSubmitted && rf.description.invalid, 'is-valid': workFlowFormSubmitted && !rf.description.invalid }">
+                                                <div *ngIf="workFlowFormSubmitted && (rf.description.invalid || rf.description.errors?.required)"
+                                                    class="help-block mt-1 text-danger"> <i
+                                                        class="ft-alert-circle align-middle"></i> Description is
+                                                    required
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="form-group text-center">
-                                        <button type="button" uiSref="work" class="btn btn-info" [disabled]="!workFlowForm.valid" awNextStep>
+                                        <button type="button" uiSref="work" class="btn btn-info"
+                                            [disabled]="!workFlowForm.valid" awNextStep>
                                             Next
                                             <span style="margin-left:10px;">
                                                 <i class="ft-chevron-right"></i>
@@ -45,9 +51,10 @@
                             </div>
                         </form>
                     </aw-wizard-step>
-                    <aw-wizard-step  [stepTitle]="'Process Steps Creation'" [navigationSymbol]="{ symbol: '&#xf0b1;', fontFamily: 'FontAwesome' }">
+                    <aw-wizard-step [stepTitle]="'Process Steps Creation'"
+                        [navigationSymbol]="{ symbol: '&#xf0b1;', fontFamily: 'FontAwesome' }">
                         <form [formGroup]="detail" class="editForm" novalidate>
-                            <br/>
+                            <br />
                             <div class='row justify-content'>
                                 <div class='col-12'>
                                     <div class="">
@@ -55,58 +62,57 @@
                                             <div class="card-body">
                                                 <div class="form-row">
                                                     <div class="col-md-6 col-12">
-                                                        <label for="form-action-2">Step</label>
-                                                        <input type="text" id="form-action-2" class="form-control" name="action" formControlName="action" required>
+                                                        <label for="form-action-2">Action</label>
+                                                        <input type="text" id="form-action-2" class="form-control"
+                                                            name="action" formControlName="action" required>
                                                     </div>
                                                     <div class="col-md-6 col-12">
-                                                        <label for="form-action-2">User</label>
-                                                        <select id="users-edit-role" class="form-control"  formControlName="idUser" required>
-                                                          <option value="" selected="" disabled>Select User</option>
-                                                          <option *ngFor="let user of usersList" [ngValue]="user">{{user.userName}}</option>
+                                                        <label for="form-action-2">Choose User</label>
+                                                        <select id="users-edit-role" class="form-control"
+                                                            formControlName="idUser" required>
+                                                            <option value="" selected="" disabled></option>
+                                                            <option *ngFor="let user of usersList" [ngValue]="user">
+                                                                {{user.userName}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>  
-                                <div class="justify-content-end" >
+                                </div>
+                                <div class="justify-content-end">
                                     <button type="button" class="btn gradient-mint mr-1" ngbPopover="Add another Action"
-                                    triggers="mouseenter:mouseleave" (click)="AddDetail()">
-                                        ADD Other Step
+                                        triggers="mouseenter:mouseleave" (click)="AddDetail()">
+                                        ADD Step
                                     </button>
                                 </div>
                             </div>
-                            <br/>
+                            <br />
+
                             <div class="row justify-content-center">
-                                <table class="table text-center m-0" *ngIf="tempdata.length>0" >
+                                <table class="table text-center m-0" *ngIf="tempdata.length>0">
                                     <thead>
-                                      <tr>
-                                        <th>#</th>
-                                        <th>Step</th>
-                                        <th>User</th>
-                                        <th>Actions</th>
-                                      </tr>
+                                        <tr>
+                                            <th>Step Number</th>
+                                            <th>Action</th>
+                                            <th>User</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let item of tempdata">
-                                        <td>{{item.Step}}</td>
-                                        <td>{{item.Action}}</td>
-                                        <td>
-                                            <div class="cell-line-height">
-                                                <p class="font-medium-1 line-height-1 mb-0">{{item.User.userName}}</p>
-                                                <span class="text-muted font-small-2">
-                                                    {{item.User.email}}</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-truncate">
-                                          <a href="javascript:;" class="danger p-0">
-                                            <i class="ft-x font-medium-3"></i>
-                                          </a>
-                                        </td>
-                                      </tr>
+                                        <tr *ngFor="let item of tempdata">
+                                            <td>{{item.Step}}</td>
+                                            <td>{{item.Action}}</td>
+                                            <td>
+                                                <div class="cell-line-height">
+                                                    <p class="font-medium-1 line-height-1 mb-0">{{item.User.userName}}
+                                                    </p>
+                                                    <span class="text-muted font-small-2">
+                                                        {{item.User.email}}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
-                                  </table>
+                                </table>
                             </div>
                             <div class="form-group text-center space-20">
                                 <button uiSref="personal" type="button" class="btn btn-secondary mr-1" awPreviousStep>
@@ -114,7 +120,11 @@
                                         <i class="ft-chevron-left"></i>
                                     </span> Previous
                                 </button>
-                                <button uiSref="result" type="button" class="btn btn-success" awResetWizard (click)="SubmitForms()">
+                                <button type="button" class="btn btn-secondary mr-1" (click)="reset()">
+                                     Reset
+                                </button>
+                                <button uiSref="result" type="button" class="btn btn-success" awResetWizard
+                                    (click)="SubmitForms()">
                                     Finish
                                     <span style="margin-left:10px;">
                                         <i class="ft-chevron-right"></i>
@@ -128,4 +138,3 @@
         </div>
     </div>
 </section>
-  

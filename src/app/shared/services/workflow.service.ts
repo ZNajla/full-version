@@ -35,7 +35,6 @@ export class WorkflowService {
     
   }
 
-
   public getAllWorkFlows() {
     let userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const headers = new HttpHeaders({

@@ -9,6 +9,7 @@ import { WorkflowService } from 'app/shared/services/workflow.service';
 import { ToastrService } from 'ngx-toastr';
 import { AddWorkflowComponent } from '../add-workflow/add-workflow.component';
 import { ViewDetailsComponent } from '../view-details/view-details.component';
+import { ProcessSteps } from 'app/shared/Models/ProcessSteps';
 
 @Component({
   selector: 'app-list-workflow',
@@ -25,6 +26,7 @@ export class ListWorkflowComponent implements OnInit {
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   public workflowsList : Workflow[] = [];
+  public detailPrecess : ProcessSteps[] = [];
 
   // column header
   public columns = [
@@ -41,7 +43,6 @@ export class ListWorkflowComponent implements OnInit {
     this.tempData = this.workflowsList;
    }
 
-
    // Public Methods
   // -----------------------------------------------------------------------------------------------------
   getAllWorkFlows(){
@@ -54,13 +55,11 @@ export class ListWorkflowComponent implements OnInit {
   }
 
   viewDetails(id : string) {
-    const modalRef = this.modalService.open(ViewDetailsComponent);
-    console.log(this.detailProcessService.getDetailsByProcess(id));
-    modalRef.componentInstance.detail = this.detailProcessService.getDetailsByProcess(id);
-    modalRef.result.then((result) => {
-      console.log(result);
-    }).catch((error) => {
-      console.log(error);
+    this.detailProcessService.getDetailsByProcess(id).subscribe((data:ProcessSteps[])=>{
+      this.detailPrecess = data;
+      console.log("detail process : "+this.detailPrecess);
+      const modalRef2 = this.modalService.open(ViewDetailsComponent);
+      modalRef2.componentInstance.detailProcess = this.detailPrecess;
     });
   }
 

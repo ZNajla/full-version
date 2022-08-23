@@ -27,7 +27,6 @@ export class UsersEditComponent implements OnInit {
     role:['', Validators.required],
     password:['']
   });
-  idUser : string;
 
   constructor(private formBuilder: FormBuilder, public toastr: ToastrService ,private userService : UsersService ,private roleService:RoleService) { }
 
@@ -37,8 +36,7 @@ export class UsersEditComponent implements OnInit {
   }
 
   getUser(){
-    this.user = this.userService.getSelectedUser();
-    this.idUser = this.user.id;
+    this.user = JSON.parse(localStorage.getItem('editUser'));
     this.updateForm.controls['userName'].setValue(this.user.userName);
     this.updateForm.controls['fullName'].setValue(this.user.fullName);
     this.updateForm.controls['email'].setValue(this.user.email);
@@ -63,7 +61,22 @@ export class UsersEditComponent implements OnInit {
     if (this.updateForm.invalid) {
       return;
     }
-    this.userService.updateUser(this.idUser, this.updateForm.value).subscribe((data) =>{
+    const body = {
+      Fullname: this.updateForm.controls['fullName'].value,
+      Username: this.updateForm.controls['userName'].value,
+      Email: this.updateForm.controls['email'].value,
+      PhoneNumber: this.updateForm.controls['phoneNumber'].value,
+      Adresse: this.updateForm.controls['adresse'].value,
+      Gender : this.user.gender,
+      BirthDate: this.user.birthDate ,
+      Facebook: this.user.facebook,
+      Google: this.user.google,
+      Linkedin: this.user.linkedin,
+      LastTimeLogedIn: this.user.lastTimeLogedIn , 
+      Role: this.updateForm.controls['role'].value,
+      Password : "",
+    };
+    this.userService.updateUser(this.user.id, body).subscribe((data) =>{
       if(data.responseCode == 1){
         console.log("user up to date");
         this.toastr.success('User is uptodate!', 'Success');

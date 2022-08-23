@@ -28,10 +28,10 @@ export class UsersService {
           let userList = new Array<User>();
           if (res.responseCode == ResponseCode.OK) {
             if (res.dateSet) {
-              console.log(res.dateSet);
+              console.table(res.dateSet);
               res.dateSet.map((x: User) => {
                 userList.push(
-                  new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse, x.gender , x.birthDate , x.facebook , x.google , x.linkedin ,x.lastTimeLogedIn ,x.role )
+                  new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse, x.gender ,x.position, x.function, x.birthDate , x.facebook , x.google , x.linkedin ,x.lastTimeLogedIn ,x.role )
                 );
               });
             }
@@ -56,7 +56,7 @@ export class UsersService {
               res.dateSet.map((x: User) => {
                 if(x.role == null){
                   userList.push(
-                    new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse,  x.gender , x.birthDate , x.facebook , x.google , x.linkedin ,x.lastTimeLogedIn , x.role )
+                    new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse,  x.gender ,x.position,x.function, x.birthDate , x.facebook , x.google , x.linkedin ,x.lastTimeLogedIn , x.role )
                   );
                 }
               });
@@ -79,7 +79,7 @@ export class UsersService {
           if (res.responseCode == ResponseCode.OK) {
             console.log(res);
             if (res.dateSet) {
-              this.user = new User(res.dateSet.id,res.dateSet.fullName, res.dateSet.email, res.dateSet.userName,res.dateSet.phoneNumber,res.dateSet.adresse,  res.dateSet.gender , res.dateSet.birthDate , res.dateSet.facebook , res.dateSet.google , res.dateSet.linkedin ,res.dateSet.lastTimeLogedIn , res.dateSet.role );
+              this.user = new User(res.dateSet.id,res.dateSet.fullName, res.dateSet.email, res.dateSet.userName,res.dateSet.phoneNumber,res.dateSet.adresse,  res.dateSet.gender ,res.dateSet.position, res.dateSet.function, res.dateSet.birthDate , res.dateSet.facebook , res.dateSet.google , res.dateSet.linkedin ,res.dateSet.lastTimeLogedIn , res.dateSet.role );
             }
           }
           return this.user;
@@ -101,12 +101,20 @@ export class UsersService {
 
   public updateUser(id:string, form : any){
     const body = {
-      Fullname: form.fullName,
-      Username: form.userName,
-      Email: form.email,
-      PhoneNumber: form.phoneNumber,
-      Adresse: form.adresse,
-      Role: form.role,
+      Fullname: form.Fullname,
+      Username: form.Username,
+      Email: form.Email,
+      PhoneNumber: form.PhoneNumber,
+      Adresse: form.Adresse,
+      Gender : form.Gender,
+      Position : form.Position,
+      Function : form.Function,
+      BirthDate: form.BirthDate ,
+      Facebook: form.Facebook,
+      Google: form.Google,
+      Linkedin: form.Linkedin,
+      LastTimeLogedIn: form.LastTimeLogedIn,
+      Role: form.Role,
       Password : "",
     };
     let userInfo = JSON.parse(localStorage.getItem('userInfo'));

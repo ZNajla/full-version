@@ -5,6 +5,10 @@ import swal from 'sweetalert2';
 import { Types } from 'app/shared/Models/TypesModal';
 import { Router } from '@angular/router';
 import { TypesService } from 'app/shared/services/types.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { AddTypeComponent } from '../add-type/add-type.component';
 
 @Component({
   selector: 'app-list-types',
@@ -15,7 +19,7 @@ import { TypesService } from 'app/shared/services/types.service';
 })
 export class ListTypesComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
-
+ 
   swal =  swalFunctions;
   public typeList : Types[] = [];
   
@@ -34,21 +38,36 @@ export class ListTypesComponent implements OnInit {
   private tempData = [];
 
 
-  constructor( private router:Router , private tpesService : TypesService ) { 
+  constructor( private router:Router , private typesService : TypesService , public toastr: ToastrService , private modalService: NgbModal ) { 
     this.tempData = this.typeList;
   }
 
     // Public Methods
   // -----------------------------------------------------------------------------------------------------
   getAllTypes(){
-    this.rolesService.getAllRoles().subscribe((data:Role[])=>{
-    this.rolesList = data;
+    this.typesService.getAllTypes().subscribe((data:Types[])=>{
+    this.typeList = data;
     this.rows = data ;
     this.tempData = data ;
-      console.log("work!!!",this.rolesList);
+      console.log("work!!!",this.typeList);
     })
   }
 
+   addType() {
+     const modalRef = this.modalService.open(AddTypeComponent , {size : "lg"});
+     modalRef.result.then((result) => {
+       console.log(result);
+       const res = this.typesService.addType(result) as Observable<any>;
+       res.subscribe((data) =>{
+         this.toastr.success('Type has been added successfuly!','', { closeButton: true });
+         this.ngOnInit();
+       },error => {
+         console.log("error",error);
+       })
+     }).catch((error) => {
+       console.log(error);
+     });
+   }
    /**
    * filterUpdate
    *
@@ -78,6 +97,7 @@ export class ListTypesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  this.getAllTypes();
   }
 
 }

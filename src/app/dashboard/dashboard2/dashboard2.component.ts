@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { DocumentService } from 'app/shared/services/document.service';
+import { TasksService } from 'app/shared/services/tasks.service';
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from "ng-chartist";
+import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 
 declare var require: any;
 
@@ -22,8 +25,22 @@ export interface Chart {
 
 export class Dashboard2Component {
 
-  constructor() {}
+  numberOfMyDoc : number ;
+  numberOfMyTasks : number ;
 
+  constructor(private docService : DocumentService , private tacheService:TasksService) {}
+
+  getMyDocument(){
+    this.docService.getDocByIdUser().subscribe((data) => {
+      this.numberOfMyDoc = data.length ;
+    })
+  }
+
+  getMyTasks(){
+    this.tacheService.getTasksByUserId().subscribe((data) => {
+      this.numberOfMyTasks = data.length ;
+    })
+  }
   // Line chart configuration Starts
   WidgetlineChart: Chart = {
     type: 'Line', data: data['WidgetlineDashboard2Chart'],
@@ -95,6 +112,38 @@ export class Dashboard2Component {
   };
   // Line chart configuration Ends
 
+   // Donut chart configuration Starts
+   DonutChart: Chart = {
+    type: 'Pie',
+    data: data['donutDashboard'],
+    options: {
+      donut: true,
+      startAngle: 0,
+      labelInterpolationFnc: function (value) {
+        var total = data['donutDashboard'].series.reduce(function (prev, series) {
+          return prev + series.value;
+        }, 0);
+        return total + '%';
+      }
+    },
+    events: {
+      draw(data: any): void {
+        if (data.type === 'label') {
+          if (data.index === 0) {
+            data.element.attr({
+              dx: data.element.root().width() / 2,
+              dy: data.element.root().height() / 2
+            });
+          } else {
+            data.element.remove();
+          }
+        }
+
+      }
+    }
+  };
+  // Donut chart configuration Ends
+
   onResized(event: any) {
     setTimeout(() => {
       this.fireRefreshEventOnWindow();
@@ -106,4 +155,9 @@ export class Dashboard2Component {
     evt.initEvent("resize", true, false);
     window.dispatchEvent(evt);
   };
+
+  ngOnInit(): void {
+    this.getMyDocument();
+    this.getMyTasks();
+  }
 }

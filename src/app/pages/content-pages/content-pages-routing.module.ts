@@ -7,7 +7,6 @@ import { ForgotPasswordPageComponent } from "./forgot-password/forgot-password-p
 import { LockScreenPageComponent } from "./lock-screen/lock-screen-page.component";
 import { LoginPageComponent } from "./login/login-page.component";
 import { MaintenancePageComponent } from "./maintenance/maintenance-page.component";
-import { RegisterPageComponent } from "./register/register-page.component";
 
 
 const routes: Routes = [
@@ -55,13 +54,6 @@ const routes: Routes = [
         component: MaintenancePageComponent,
         data: {
           title: 'Maintenance Page'
-        }
-      },
-      {
-        path: 'register',
-        component: RegisterPageComponent,
-        data: {
-          title: 'Register Page'
         }
       }   
       

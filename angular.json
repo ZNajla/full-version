@@ -13,7 +13,6 @@
           "options": {
             "allowedCommonJsDependencies": [
               "dragula",
-              "firebase/app",
               "@mattlewis92/dom-autoscroller",
               "angular-calendar/date-adapters/date-fns",
               "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard",
@@ -53,8 +52,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/vendor/pace/pace.min.js",
-              "node_modules/apexcharts/dist/apexcharts.min.js"
+              "src/assets/vendor/pace/pace.min.js"
             ]
           },
           "configurations": {

@@ -13,12 +13,10 @@
               <i class="ft-users font-large-1"></i>
             </div>
           </div>
+          <span class="float-right mb-2">
+            <a [routerLink]="['/users-list']" routerLinkActive="router-link-active"  class="card-link white">View More<i class="fa fa-angle-right"></i></a>
+          </span>
         </div>
-        <div id="Widget-line-chart" class=" WidgetlineChart WidgetlineChartshadow mb-2">
-					<x-chartist class="height-75" [data]="WidgetlineChart.data" [type]="WidgetlineChart.type" [options]="WidgetlineChart.options" [responsiveOptions]="WidgetlineChart.responsiveOptions"
-					 [events]="WidgetlineChart.events">
-					</x-chartist>
-				</div>
       </div>
     </div>
   </div>
@@ -35,12 +33,10 @@
               <i class="ft-layers font-large-1"></i>
             </div>
           </div>
+          <span class="float-right mb-2">
+            <a [routerLink]="['/workflow-list']" routerLinkActive="router-link-active"  class="card-link white">View More<i class="fa fa-angle-right"></i></a>
+          </span>
         </div>
-        <div id="Widget-line-chart" class="WidgetlineChart WidgetlineChartshadow mb-2">
-					<x-chartist class="height-75" [data]="WidgetlineChart1.data" [type]="WidgetlineChart1.type" [options]="WidgetlineChart1.options" [responsiveOptions]="WidgetlineChart1.responsiveOptions"
-					 [events]="WidgetlineChart1.events">
-					</x-chartist>
-				</div>
       </div>
     </div>
   </div>
@@ -58,12 +54,10 @@
               <i class="ft-book font-large-1"></i>
             </div>
           </div>
+          <span class="float-right mb-2">
+            <a [routerLink]="['/doc-list']" routerLinkActive="router-link-active"  class="card-link white">View More<i class="fa fa-angle-right"></i></a>
+          </span>
         </div>
-        <div id="Widget-line-chart" class="WidgetlineChart WidgetlineChartshadow mb-2">
-					<x-chartist class="height-75" [data]="WidgetlineChart2.data" [type]="WidgetlineChart2.type" [options]="WidgetlineChart2.options" [responsiveOptions]="WidgetlineChart2.responsiveOptions"
-					 [events]="WidgetlineChart2.events">
-					</x-chartist>
-				</div>
       </div>
     </div>
   </div>
@@ -91,3 +85,55 @@
   </div> -->
 </div>
 <!--Statistics cards Ends-->
+<div class="row match-height">
+  <div class="col-xl-6 col-lg-12 col-sm-12">
+    <div class="card overflow-hidden">
+      <div class="card-content">
+        <div class="card-img">
+          <img class="card-img-top img-fluid height-300 weather-pic" src="assets/img/photos/sunny-weather.jpg"
+            alt="Card image cap">
+          <div class="card-img-overlay overlay-dark">
+            <h4 class="card-title">Sunny</h4>
+          </div>
+          <button type="button" class="btn btn-floating halfway-fab bg-secondary">
+            <i class="ft-plus"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-2 text-center">
+              <span class="d-block">Mon</span>
+              <i class="wi wi-day-sunny d-block secondary lighten-1 font-large-1 my-3"></i>
+              <span class="d-block">13&deg;</span>
+            </div>
+            <div class="col-2 text-center">
+              <span class="d-block">Tue</span>
+              <i class="wi wi-day-cloudy d-block secondary lighten-1 font-large-1 my-3"></i>
+              <span class="d-block">12&deg;</span>
+            </div>
+            <div class="col-2 text-center">
+              <span class="d-block">Wed</span>
+              <i class="wi wi-day-cloudy-gusts d-block secondary lighten-1 font-large-1 my-3"></i>
+              <span class="d-block">10&deg;</span>
+            </div>
+            <div class="col-2 text-center">
+              <span class="d-block">Thu</span>
+              <i class="wi wi-day-cloudy-windy d-block secondary lighten-1 font-large-1 my-3"></i>
+              <span class="d-block">12&deg;</span>
+            </div>
+            <div class="col-2 text-center">
+              <span class="d-block">Fri</span>
+              <i class="wi wi-day-fog d-block secondary lighten-1 font-large-1 my-3"></i>
+              <span class="d-block">9&deg;</span>
+            </div>
+            <div class="col-2 text-center">
+              <span class="d-block">Sat</span>
+              <i class="wi wi-day-lightning d-block secondary lighten-1 font-large-1 my-3"></i>
+              <span class="d-block">6&deg;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

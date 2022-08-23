@@ -36,6 +36,7 @@ export class UsersListComponent implements OnInit {
     { name: "Username", prop: "userName" },
     { name: "Full Name", prop: "fullName" },
     { name: "Email", prop: "email" },
+    { name: "Last activity", prop: "lastTimeLogedIn" },
     { name: "Role", prop: "role" },
     { name: "Actions", prop: "id" },
   ];
@@ -109,7 +110,8 @@ export class UsersListComponent implements OnInit {
   onUpdateUser(id :string){
     console.log(id);
     this.usersService.getUserById(id).subscribe((data) =>{
-      console.log(data);
+      console.log(data); 
+      localStorage.setItem("editUser",JSON.stringify(data));
       this.router.navigate([`/users-edit`]);
     })
   }

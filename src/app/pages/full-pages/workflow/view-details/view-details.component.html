@@ -1,24 +1,27 @@
-<div class="row justify-content-center">
-    <table class="table text-center m-0"  >
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Action</th>
-            <th>User Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr >
-            <td></td>
-            <td></td>
-            <td>
-                <div class="cell-line-height">
-                    <p class="font-medium-1 line-height-1 mb-0"></p>
-                    <span class="text-muted font-small-2">
+<div>
+    <section id="vertical-timeline-left" class="timeline-left timeline-wrapper col-sm-10 col-12 offset-sm-1">
+        <ul class="timeline" *ngFor="let item of detailProcess">
+            <li class="timeline-line"></li>
+            <li class="timeline-item">
+                <div class="timeline-badge justify-content-center">
+                    <span class="bg-primary bg-lighten-4" data-toggle="tooltip" placement="center">
+                        {{item.StepNumber}}
                     </span>
                 </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <div class="timeline-card card shadow-z-1">
+                    <div class="card-content bg-primary bg-lighten-4">
+                        <div class="card-body">
+                            <h4 class="card-title mb-0">{{item.Action}}</h4>
+                            <hr class="mt-0 mb-2">
+                            <div class="cell-line-height">
+                                <p class="font-medium-1 line-height-1 mb-0"> {{item.UserName}}</p>
+                                <span class="text-muted font-small-2">{{item.UserEmail}}</span>
+                            </div>
+                            <hr class="my-2">
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
 </div>

@@ -67,7 +67,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    this.logedUser = userInfo.userName;
+    this.logedUser = userInfo;
     this.listItems = LISTITEMS;
 
     if (this.innerWidth < 1200) {

@@ -21,17 +21,19 @@ export class AuthService {
   signupUser(form : any) {
 
     const body = {
-      Fullname: form.fullName,
-      Username: form.userName,
+      FullName: form.fullName,
+      UserName: form.userName,
       Email: form.email,
       PhoneNumber: form.phoneNumber,
       Adresse: form.adresse,
       Gender: form.gender,
-      BirthDate: form.birthDate,
-      Facebook: form.facebook,
-      Google: form.google,
-      Linkedin: form.linkedin,
-      LastTimeLogedIn: form.lastTimeLogedIn,
+      Position : form.position,
+      Function : form.function,
+      BirthDate: Date.now ,
+      Facebook: "",
+      Google: "",
+      Linkedin: "",
+      LastTimeLogedIn: Date.now ,
       Role: form.role, 
       Password: form.password,
     };

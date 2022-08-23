@@ -1,5 +1,4 @@
 import { User } from "./UserModel";
-import { Workflow } from "./WorkflowModel";
 
 export class Detail_Processus{
 

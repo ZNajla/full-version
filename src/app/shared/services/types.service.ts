@@ -34,21 +34,19 @@ export class TypesService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${userInfo?.token}`,
     });
-    return this.httpClient
-      .get<ResponseModel>(this.url + '/GetAllTypes', { headers: headers })
-      .pipe(
-        map((res) => {
-          let typesList = new Array<Types>();
-          if (res.responseCode == ResponseCode.OK) {
-            if (res.dateSet) {
-              console.log("types : "+res.dateSet);
-              res.dateSet.map((x:any) => {
-                typesList.push(new Types(x.id , x.nom ));
-              });
-            }
+    return this.httpClient.get<ResponseModel>(this.url + '/GetAllTypes', { headers: headers })
+      .pipe(map((res) => {
+        console.log(res);
+        let typesList = new Array<Types>();
+        if (res.responseCode == ResponseCode.OK) {
+          if (res.dateSet) {
+            console.log("types : "+res);
+            res.dateSet.map((x:any) => {
+              typesList.push(new Types(x.id , x.nom , x.processus));
+            });
           }
-          return typesList;
-        })
-      );
+        }
+        return typesList;
+      }));
   }
 }

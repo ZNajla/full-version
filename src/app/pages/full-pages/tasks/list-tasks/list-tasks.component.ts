@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { Task } from 'app/shared/Models/TaskModel';
+import { DocumentService } from 'app/shared/services/document.service';
 import { TasksService } from 'app/shared/services/tasks.service';
+import { ToastrService } from 'ngx-toastr';
+import { ViewTaskComponent } from '../view-task/view-task.component';
 
 @Component({
   selector: 'app-list-tasks',
@@ -15,6 +19,7 @@ export class ListTasksComponent implements OnInit {
 
 
   public taskList : Task[] = [];
+  public task : Task ;
    // row data
    public rows = [];
    public ColumnMode = ColumnMode;
@@ -26,24 +31,50 @@ export class ListTasksComponent implements OnInit {
      { name: "Document", prop: "Document.titre" },
      { name: "Action", prop: "Action" },
      { name: "Date Upload", prop: "DateCreation"},
-     { name: "Actions", prop: "id" },
+     { name: "Actions", prop: ["ID" , "Etat"] },
    ];
 
    // private
   private tempData = [];
   
-  constructor(private tacheService:TasksService) {
+  constructor(private tacheService:TasksService , private modalService: NgbModal , private docService : DocumentService , public toastr: ToastrService) {
     this.tempData = this.taskList ;
    }
 
   getTasks(){
     let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    this.tacheService.getTasksById(userInfo.id).subscribe((data:Task[])=>{
+    this.tacheService.getTasksByUserId().subscribe((data:Task[])=>{
       this.taskList = data;
       this.rows = data ;
       this.tempData = data ;
         console.log("work!!!",this.taskList);
       })
+  }
+
+  viewTask(id : string) {
+    console.log(id);
+    this.tacheService.getTaskById(id).subscribe((data : Task) => {
+      this.task = data ;
+      console.log(this.task);
+      const modalRef = this.modalService.open(ViewTaskComponent , {size : "xl"});
+      modalRef.componentInstance.task = this.task;
+
+      modalRef.result.then((result) => {
+        console.log(result);
+        this.docService.updateDocState(this.task.ID , result).subscribe((data2) =>{
+          console.log(data2); 
+          if(result.StateDocument == 3){
+            this.tacheService.addTache(this.task.Document.id).subscribe((data3) =>{
+              console.log(data3.responseMessage);
+            })
+          }
+        });
+        this.ngOnInit();
+        this.toastr.success('successfuly!','', { closeButton: true });
+     });
+    });
+    
+    
   }
  /**
    * filterUpdate
@@ -73,7 +104,6 @@ export class ListTasksComponent implements OnInit {
     updateLimit(limit) {
       this.limitRef = limit.target.value;
     }
-
 
   ngOnInit(): void {
     this.getTasks();

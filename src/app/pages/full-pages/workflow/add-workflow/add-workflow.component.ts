@@ -3,9 +3,6 @@ import { Detail_Processus } from './../../../../shared/Models/Detail-ProcessusMo
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'app/shared/auth/users.service';
-import { WorkflowService } from 'app/shared/services/workflow.service';
-import { DetailWorkflowService } from 'app/shared/services/detail-workflow.service';
-import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -29,7 +26,6 @@ export class AddWorkflowComponent implements OnInit, AfterViewInit {
   public user : User;
   public user2 : User;
 
-
   public detail = this.formBuilder.group({
     action: ["", Validators.required],
     idUser: [ User , Validators.required]
@@ -38,7 +34,7 @@ export class AddWorkflowComponent implements OnInit, AfterViewInit {
   public i = 0 ;
   public detailProcess : Detail_Processus;
 
-  constructor(private ref: ChangeDetectorRef, private router:Router,private formBuilder: FormBuilder,private usersService:UsersService , private workflowService:WorkflowService , private detailProcessService:DetailWorkflowService , public activeModal: NgbActiveModal) { 
+  constructor(private ref: ChangeDetectorRef,private formBuilder: FormBuilder,private usersService:UsersService , public activeModal: NgbActiveModal) { 
     
   }
 
@@ -81,10 +77,15 @@ export class AddWorkflowComponent implements OnInit, AfterViewInit {
     this.activeModal.close(result);
   }
 
+  reset(){
+    this.detail.reset();
+    this.tempdata = [];
+    this.ngOnInit();
+  }
+
   ngOnInit(): void {
     this.getAllUser();
   }
-
 
   ngAfterViewInit() {
     setTimeout(() => {

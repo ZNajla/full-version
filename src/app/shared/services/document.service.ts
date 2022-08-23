@@ -80,6 +80,45 @@ export class DocumentService {
       );
   }
 
+  public getDocsByState(state : string) {
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+    return this.httpClient.get<ResponseModel>(this.url + `/GetDocumentByState/${state}`, { headers: headers })
+      .pipe(map((res) => {
+          let documentList = new Array<Documents>();
+          if (res.responseCode == ResponseCode.OK) {
+            if (res.dateSet) {
+              res.dateSet.map((x: any) => {
+               switch (x.currentState) {
+                  case 0:
+                    x.currentState = 'Awaiting'
+                    break;
+                  case 1:
+                    x.currentState = 'In Progress'
+                    break;
+                  case 2:
+                    x.currentState = 'Draft'
+                    break;
+                  case 3:
+                    x.currentState = 'Validated'
+                    break;
+                  case 4:
+                    x.currentState = 'Rejected'
+                    break;
+                }
+                documentList.push(
+                  new Documents( x.id , x.url , x.reference , x.titre , x.nbPage , x.motCle , x.version , x.date ,x.dateUpdate,x.currentState,x.currentNumberState, x.user , x.types)
+                );
+              });
+            }
+          }
+          return documentList;
+        })
+      );
+  }
+
   addDocState(id : string){
     let userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const headers = new HttpHeaders({
@@ -144,7 +183,7 @@ export class DocumentService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${userInfo?.token}`,
     });
-    return this.httpClient.get<ResponseModel>(this.url +`/GetDocByUserId/${userInfo.id}`, { headers: headers })
+    return this.httpClient.get<ResponseModel>(this.url +`/GetDocById/${id}`, { headers: headers })
       .pipe(map((res) => {
           let doc : Documents;
           if (res.responseCode == ResponseCode.OK) {
@@ -171,5 +210,36 @@ export class DocumentService {
           }
           return doc;
       }));
+  }
+
+  updateDocState(idTask : string , body : any){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+
+    return this.httpClient.put<ResponseModel>(this.url2 +`/UpdateStatue/${idTask}`,body,{headers : headers}).pipe(
+      map((res)=> {
+        console.log(res);
+        return res ;
+      }
+      ) 
+    );
+  }
+
+  getDocStates(id : string){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+
+    return this.httpClient.get<ResponseModel>(this.url2+`/GetDocumentState/${id}`,{headers : headers}).pipe(
+      map((res)=>{
+        if(res.responseCode == 1){
+          console.log(res.dateSet);
+          return (res.dateSet);
+        }
+      })
+    )
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsersService } from 'app/shared/auth/users.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-account-settings',
@@ -13,53 +15,13 @@ export class AccountSettingsComponent implements OnInit {
   generalFormSubmitted = false;
   changePasswordFormSubmitted = false;
   infoFormSubmitted = false;
-  alertVisible = true;
-
-  countries = [
-      { value: "USA", name: 'USA' },
-      { value: "UK", name: 'UK'},
-      { value: "Canada", name: 'Canada' },
-  ];
-
-  selectedLanguages = ["English", "Spanish"];
-  languages = [
-      { value: "English", name: 'English' },
-      { value: "Spanish", name: 'Spanish'},
-      { value: "French", name: 'French' },
-      { value: "Russian", name: 'Russian' },
-      { value: "German", name: 'German'},
-      { value: "Hindi", name: 'Hindi' },
-      { value: "Arabic", name: 'Arabic' },
-      { value: "Sanskrit", name: 'Sanskrit'},
-  ];
-
-  selectedMusic = ["Jazz", "Hip Hop"];
-  music = [
-      { value: "Rock", name: 'Rock' },
-      { value: "Jazz", name: 'Jazz'},
-      { value: "Disco", name: 'Disco' },
-      { value: "Pop", name: 'Pop' },
-      { value: "Techno", name: 'Techno'},
-      { value: "Folk", name: 'Folk' },
-      { value: "Hip Hop", name: 'Hip Hop' },
-  ];
-
-  selectedMovies = ["The Dark Knight", "Perl Harbour"];
-  movies = [
-      { value: "Avatar", name: 'Avatar' },
-      { value: "The Dark Knight", name: 'The Dark Knight'},
-      { value: "Harry Potter", name: 'Harry Potter' },
-      { value: "Iron Man", name: 'Iron Man' },
-      { value: "Spider Man", name: 'Spider Man'},
-      { value: "Perl Harbour", name: 'Perl Harbour' },
-      { value: "Airplane!", name: 'Airplane!' },
-  ];
+  alertVisible = false;
+  logedUser : any ;
 
   generalForm = new FormGroup({
-    username: new FormControl('hermione007', [Validators.required]),
-    name: new FormControl('Hermione Granger', [Validators.required]),
-    email: new FormControl('granger007@hogward.com', [Validators.required]),
-    company: new FormControl('', [Validators.required])
+    username: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required])
   });
 
   changePasswordForm = new FormGroup({
@@ -69,24 +31,32 @@ export class AccountSettingsComponent implements OnInit {
   });
 
   infoForm = new FormGroup({
-    bdate: new FormControl('', [Validators.required]),
-    bio: new FormControl(''),
-    phone: new FormControl('', [Validators.required]),
-    website: new FormControl('')
+    bdate: new FormControl(''),
+    adresse: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [Validators.required])
   });
 
   socialForm = new FormGroup({
-    twitter: new FormControl(''),
     facebook: new FormControl(''),
     googlePlus: new FormControl(''),
-    linkedin: new FormControl(''),
-    instagram: new FormControl(''),
-    quora: new FormControl('')
+    linkedin: new FormControl('')
   });
 
-  constructor() { }
+  constructor(private userService : UsersService , public toastr: ToastrService) { }
 
   ngOnInit() {
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.logedUser = userInfo ;
+    console.log(this.logedUser);
+    this.generalForm.controls['username'].setValue(userInfo.userName);
+    this.generalForm.controls['name'].setValue(userInfo.fullName);
+    this.generalForm.controls['email'].setValue(userInfo.email);
+    this.infoForm.controls['bdate'].setValue(userInfo.birthDate);
+    this.infoForm.controls['adresse'].setValue(userInfo.adresse);
+    this.infoForm.controls['phone'].setValue(userInfo.phoneNumber);
+    this.socialForm.controls['facebook'].setValue(userInfo.facebook);
+    this.socialForm.controls['googlePlus'].setValue(userInfo.google);
+    this.socialForm.controls['linkedin'].setValue(userInfo.linkedin);
   }
 
   setActiveTab(tab) {
@@ -110,6 +80,33 @@ export class AccountSettingsComponent implements OnInit {
     if (this.generalForm.invalid) {
       return;
     }
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const body = {
+      Fullname: this.generalForm.controls['name'].value,
+      Username: this.generalForm.controls['username'].value,
+      Email: userInfo.email,
+      PhoneNumber: userInfo.phoneNumber,
+      Adresse: userInfo.adresse,
+      Gender : userInfo.gender,
+      BirthDate: userInfo.birthdate ,
+      Facebook: userInfo.facebook,
+      Google: userInfo.google,
+      Linkedin: userInfo.linkedin,
+      LastTimeLogedIn: userInfo.lastTimeLogedIn , 
+      Role: userInfo.role,
+      Password : "",
+    };
+    this.userService.updateUser(userInfo.id,body).subscribe((data) =>{
+      if(data.responseCode == 1){
+        userInfo.fullname = data.dateSet.fullname ;
+        userInfo.username = data.dateSet.username;
+        localStorage.setItem("userInfo",JSON.stringify(userInfo));
+        console.log("user up to date");
+        this.toastr.success('User is uptodate!', 'Success');
+      }else{
+        this.toastr.error(data.responseMessage, 'ERROR');
+      }
+    })
   }
 
   onChangePasswordFormSubmit() {
@@ -124,12 +121,90 @@ export class AccountSettingsComponent implements OnInit {
     if (this.infoForm.invalid) {
       return;
     }
+
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const body = {
+      Fullname: userInfo.fullName,
+      Username: userInfo.userName,
+      Email: userInfo.email,
+      PhoneNumber: this.infoForm.controls['phone'].value,
+      Adresse: this.infoForm.controls['adresse'].value,
+      Gender : userInfo.gender,
+      BirthDate: this.infoForm.controls['bdate'].value ,
+      Facebook: userInfo.facebook,
+      Google: userInfo.google,
+      Linkedin: userInfo.linkedin,
+      LastTimeLogedIn: userInfo.lastTimeLogedIn , 
+      Role: userInfo.role,
+      Password : "",
+    };
+    this.userService.updateUser(userInfo.id,body).subscribe((data) =>{
+      if(data.responseCode == 1){
+        userInfo.phoneNumber = data.dateSet.phoneNumber ;
+        userInfo.adresse = data.dateSet.adresse;
+        userInfo.birthDate = data.dateSet.birthDate ;
+        localStorage.setItem("userInfo",JSON.stringify(userInfo));
+        console.log("user up to date");
+        this.toastr.success('User is uptodate!', 'Success');
+      }else{
+        this.toastr.error(data.responseMessage, 'ERROR');
+      }
+    })
   }
 
   onSocialFormSubmit() {
     if (this.socialForm.invalid) {
       return;
     }
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const body = {
+      Fullname: userInfo.fullName,
+      Username: userInfo.userName,
+      Email: userInfo.email,
+      PhoneNumber: userInfo.phoneNumber,
+      Adresse: userInfo.adresse,
+      Gender : userInfo.gender,
+      BirthDate: userInfo.birthDate,
+      Facebook: this.socialForm.controls['facebook'].value,
+      Google: this.socialForm.controls['googlePlus'].value,
+      Linkedin: this.socialForm.controls['linkedin'].value,
+      LastTimeLogedIn: userInfo.lastTimeLogedIn , 
+      Role: userInfo.role,
+      Password : "",
+    };
+
+    this.userService.updateUser(userInfo.id,body).subscribe((data) =>{
+      if(data.responseCode == 1){
+        userInfo.facebook = data.dateSet.facebook ;
+        userInfo.google = data.dateSet.google;
+        userInfo.linkedin = data.dateSet.linkedin ;
+        localStorage.setItem("userInfo",JSON.stringify(userInfo));
+        console.log("user up to date");
+        this.toastr.success('User is uptodate!', 'Success');
+      }else{
+        this.toastr.error(data.responseMessage, 'ERROR');
+      }
+    })
   }
 
+  resetGeneral(){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.generalForm.controls['username'].setValue(userInfo.userName);
+    this.generalForm.controls['name'].setValue(userInfo.fullName);
+    this.generalForm.controls['email'].setValue(userInfo.email);
+  }
+
+  resetSocial(){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.socialForm.controls['facebook'].setValue(userInfo.facebook);
+    this.socialForm.controls['googlePlus'].setValue(userInfo.google);
+    this.socialForm.controls['linkedin'].setValue(userInfo.linkedin);
+  }
+
+  resetInfo(){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.infoForm.controls['bdate'].setValue(userInfo.birthDate);
+    this.infoForm.controls['adresse'].setValue(userInfo.adresse);
+    this.infoForm.controls['phone'].setValue(userInfo.phoneNumber);
+  }
 }

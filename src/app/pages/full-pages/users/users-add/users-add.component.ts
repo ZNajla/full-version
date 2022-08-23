@@ -1,9 +1,10 @@
 import { value } from './../../../../shared/data/dropdowns';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal , NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { RoleService } from 'app/shared/auth/role.service';
 import { Role } from 'app/shared/Models/RoleModel';
+
 
 @Component({
   selector: 'app-users-add',
@@ -13,6 +14,8 @@ import { Role } from 'app/shared/Models/RoleModel';
 })
 export class UsersAddComponent implements OnInit {
 
+  popupModel;
+  model: NgbDateStruct;
   registerFormSubmitted = false;
   ErrorMessage : string ;
   public roles : Role[] = [];
@@ -23,8 +26,11 @@ export class UsersAddComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     phoneNumber: ['', Validators.required],
     adresse: ['', Validators.required],
+    gender: ['' , Validators.required],
+    position: ['' , Validators.required],
+    function : ['' , Validators.required],
     role:[''],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['']
   });
 
   constructor(public activeModal: NgbActiveModal ,private formBuilder: FormBuilder ,private roleService:RoleService) { 
@@ -33,7 +39,7 @@ export class UsersAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListRoles();
-    this.registerForm.reset();
+    this.registerForm.reset;
   }
 
   get rf() {
@@ -42,11 +48,11 @@ export class UsersAddComponent implements OnInit {
 
   //  On submit click, reset field value
   onSubmit() {
+    console.log("-----------------");
     this.registerFormSubmitted = true;
     if (this.registerForm.invalid) {
       return;
     }
-    console.log("work!!!!");
     this.activeModal.close(this.registerForm.value);
   }
 

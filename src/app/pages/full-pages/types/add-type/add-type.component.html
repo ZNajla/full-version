@@ -1,0 +1,37 @@
+<!--add user Page Starts-->
+<section id="users-add">
+    <div class="row auth-height m-0">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="row m-0">
+          <div class="col-md-6 d-lg-flex justify-content-center align-items-center auth-img-bg p-3">
+            <img src="assets/img/gallery/register.png" alt="" class="img-fluid" width="900px" />
+          </div>
+          <div class="col-md-6 col-12 px-4 py-3 justify-content-center">
+            <h4 class="card-title mb-2">Add New Type</h4>
+            <form [formGroup]="typeForm">
+              <div class="form-group">
+                <input type="text" formControlName="Nom" class="form-control mb-2 round" placeholder="Type"
+                  required />
+                <!-- <div *ngIf=" registerFormSubmitted && (rf.fullName.invalid || rf.fullName.errors?.required)"
+                  class="help-block mt-1 text-danger">
+                  <i class="ft-alert-circle align-middle"></i> Name is required
+                </div> 
+                [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.fullName.invalid, 'is-valid': registerFormSubmitted && !rf.fullName.invalid }"-->
+              </div>
+              <div class="form-group">
+                <select id="users-edit-role" class="form-control round" formControlName="ProcessId">
+                  <option value="" selected="">Select Process</option>
+                  <option *ngFor="let proc of processList" value="{{proc.id}}"> {{proc.nomProcessus}} </option>
+                </select>
+            </div>
+              
+              <div class="d-flex justify-content-between flex-sm-row flex-column">
+                <a class="btn btn-primary" (click)="onSubmit()">ADD</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--add user Page Ends-->

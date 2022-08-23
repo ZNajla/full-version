@@ -1,4 +1,5 @@
 <!-- Filter Datatables -->
+<p>Document > My Documents</p>
 <section id="ngx-datatable-filter">
     <div class="row">
       <div class="col-12">
@@ -15,7 +16,7 @@
             <div class="card-body">
               <!-- ngx-datatable-filter -->
               <fieldset class="form-group">
-                <label>Show
+                <label class="mr-3">Show
                   <select name="users-list-select"
                     class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
                     (click)="updateLimit($event)">
@@ -23,8 +24,21 @@
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
+                  </select>entries
+                </label>
+
+                <label>Filter:
+                  <select name="users-list-select" class="form-control form-control-sm d-inline-block width-100 p-right-25  mx-1" 
+                  (click)="filterByState($event)">
+                      <option value="">All states</option>
+                      <option value="Awaiting">Awaiting</option>
+                      <option value="Validated">Validated</option>
+                      <option value="Rejected">Rejected</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Draft">Draft</option>
                   </select>
-                  entries</label>
+                </label>
+
                 <label for="ngx-filter-ref" class="float-right">Search:
                   <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200 ml-1"
                     type="text" (keyup)="filterUpdate($event)" />
@@ -33,7 +47,7 @@
               <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
                 [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
                 [columns]="columns">
-                <ngx-datatable-column name="Document" prop="Titre" [width]="40"></ngx-datatable-column>
+                <ngx-datatable-column name="Document" prop="Titre" [width]="100"></ngx-datatable-column>
                 <ngx-datatable-column name="Uploaded by" prop="user" [width]="120">
                   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                     <div class="d-flex align-items-center">
@@ -63,10 +77,16 @@
                   </div>
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Actions" prop="ID" [width]="50">
-                  <ng-template ngx-datatable-cell-template let-value="value">
-                    <a><i class="ft-more-vertical text-primary cursor-pointer mr-2"></i></a>
-                    <a (click)="onDeleteDoc(value)" *ngIf="isDraft(value)"><i class="ft-trash-2 text-danger cursor-pointer"></i></a>
+                <ngx-datatable-column name="Actions" [width]="50">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" >
+                    <!-- <a><i class="ft-more-vertical text-primary cursor-pointer mr-2"></i></a> -->
+                    <a (click)="onDeleteDoc(value)" *ngIf="row.CurrentState == 'Draft'"><i class="ft-trash-2 text-danger cursor-pointer mr-2"></i></a>
+                    <a (click)="viewDocument(value)">
+                      <p>  
+                        <i class="ft-edit text-primary cursor-pointer mr-2"> 
+                        </i>
+                      </p>
+                    </a>
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>

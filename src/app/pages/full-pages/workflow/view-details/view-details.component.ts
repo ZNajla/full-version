@@ -1,19 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProcessSteps } from 'app/shared/Models/ProcessSteps';
 
 @Component({
   selector: 'app-view-details',
   templateUrl: './view-details.component.html',
   styleUrls: ['./view-details.component.scss']
 })
+
 export class ViewDetailsComponent implements OnInit {
 
-  @Input() public detail;
+  @Input() public detailProcess : ProcessSteps[] = [];
 
-  constructor(private modalService: NgbModal) { }
+  constructor() { }
 
   ngOnInit(): void {
-    console.log(this.detail);
+    console.log("Input : ");
+    this.detailProcess.forEach(element =>{
+      console.log(element);
+    })
   }
 
 }

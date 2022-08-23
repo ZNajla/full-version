@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { Documents } from 'app/shared/Models/DocModel';
@@ -6,7 +7,6 @@ import { DocumentService } from 'app/shared/services/document.service';
 import { TasksService } from 'app/shared/services/tasks.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { ViewDocumentComponent } from '../view-document/view-document.component';
 import { AddDocumentComponent } from './add-document/add-document.component';
 
 @Component({
@@ -33,12 +33,12 @@ export class ListDocumentComponent implements OnInit {
      { name: "State", prop: "CurrentState" },
      { name: "Uploaded by", prop: "user" },
      { name: "Date Upload", prop: "Date"},
-     { name: "Actions", prop: "id" },
+     { name: "Actions", prop:[ "ID" , "Url" , "Titre" ]},
    ];
 
    // private
   private tempData = [];
-  constructor(private docService : DocumentService , private tacheService:TasksService , private modalService: NgbModal , public toastr: ToastrService ) {
+  constructor(private docService : DocumentService ,public router: Router, private tacheService:TasksService , private modalService: NgbModal , public toastr: ToastrService ) {
     this.tempData = this.docList ;
    }
 
@@ -52,7 +52,7 @@ export class ListDocumentComponent implements OnInit {
       console.log("work!!!",this.docList);
     })
   }
-
+  
   addDoc() {
     const modalRef = this.modalService.open(AddDocumentComponent , {size : "xl" , animation: true});
     modalRef.result.then((result) => {
@@ -76,12 +76,12 @@ export class ListDocumentComponent implements OnInit {
     });
   }
 
-  viewDoc() {
-    const modalRef = this.modalService.open(ViewDocumentComponent , {size : "xl"});
-    modalRef.result.then((result) => {
-    }).catch((error) => {
-      console.log(error);
-    });
+  viewDocument(id : string){
+    this.docService.getDocById(id).subscribe((data : Documents) => {
+      console.log(data);
+      localStorage.setItem("Document",JSON.stringify(data));
+      this.router.navigate(['/Document-view']);
+    })
   }
 
   /**
@@ -112,6 +112,24 @@ export class ListDocumentComponent implements OnInit {
     updateLimit(limit) {
       this.limitRef = limit.target.value;
     }
+
+    /**
+   * filterByState
+   *
+   * @param event
+   */
+  filterByState(event) {
+    const val = event.target.value.toLowerCase();
+    // filter our data
+    const temp = this.tempData.filter(function (d) {
+      return d.CurrentState.toLowerCase().indexOf(val) !== -1 || !val;
+  });
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+  
   ngOnInit(): void {
     this.getAllDocs();
   }

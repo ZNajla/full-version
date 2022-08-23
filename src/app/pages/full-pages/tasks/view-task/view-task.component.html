@@ -1,0 +1,24 @@
+<section>
+    <div class="row auth-height m-0">
+      <div class="col-12 d-flex align-items-center justify-content-center ">
+        <div class="row m-0">
+          <div class="col-md-9 d-lg-flex justify-content-center align-items-center auth-img-bg p-3 bg-primary bg-lighten-4">
+            <img src="assets/img/gallery/register.png" alt="" width="900px">
+          </div>
+          <div class="col-md-3 col-12 px-4 py-3 justify-content-center">
+            <p>Document title : {{task.Document.titre}} </p>
+            <p>Uploaded by : {{task.Document.user.fullName}} </p>
+            <p>Your Task is : {{task.Action}} </p>
+            <form [formGroup]="taskForm">
+                <div class="form-group">
+                    <label class="sr-only" for="hidden-label-form-6">Details</label>
+                    <textarea id="hidden-label-form-6" formControlName="comment" rows="4" class="form-control round" name="comment2" placeholder="Comment"></textarea>
+                </div>
+                <button type="button" (click)="onAccept()" class="btn btn-success bg-light-success mr-1 mb-1">Accept</button>
+                <button type="button" (click)="onReject()" class="btn btn-danger bg-light-danger mr-1 mb-1">Reject</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

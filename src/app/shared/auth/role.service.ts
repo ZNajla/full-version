@@ -64,7 +64,7 @@ export class RoleService {
             if (res.dateSet) {
               res.dateSet.map((x: User) => {
                 userList.push(
-                  new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse,x.gender , x.birthDate , x.facebook , x.google , x.linkedin ,x.lastTimeLogedIn , x.role )
+                  new User(x.id,x.fullName, x.email, x.userName,x.phoneNumber,x.adresse,x.gender ,x.position,x.function, x.birthDate , x.facebook , x.google , x.linkedin ,x.lastTimeLogedIn , x.role )
                 );
               });
             }

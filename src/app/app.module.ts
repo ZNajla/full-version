@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from "ngx-toastr";
@@ -9,7 +8,6 @@ import { AgmCoreModule } from "@agm/core";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { StoreModule } from "@ngrx/store";
 import { DragulaService } from "ng2-dragula";
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -21,7 +19,6 @@ import {
 
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/shared.module";
-import * as fromApp from './store/app.reducer';
 import { AppComponent } from "./app.component";
 import { ContentLayoutComponent } from "./layouts/content/content-layout.component";
 import { FullLayoutComponent } from "./layouts/full/full-layout.component";
@@ -46,11 +43,9 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent],
   imports: [
     BrowserAnimationsModule,
-    StoreModule.forRoot(fromApp.appReducer),
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    AngularFireAuthModule,
     ToastrModule.forRoot(),
     NgbModule,
     NgxSpinnerModule,

@@ -1,4 +1,3 @@
-import { State } from './../../taskboard-ngrx/store/taskboard.reducers';
 import { Types } from './TypesModal';
 import { User } from './UserModel';
 export class Documents{

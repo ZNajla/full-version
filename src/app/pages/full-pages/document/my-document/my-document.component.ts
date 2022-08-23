@@ -5,11 +5,11 @@ import { DocumentService } from 'app/shared/services/document.service';
 import { TasksService } from 'app/shared/services/tasks.service';
 import { ToastrService } from 'ngx-toastr';
 import { Documents } from 'app/shared/Models/DocModel';
-import { ViewDocumentComponent } from '../view-document/view-document.component';
 import { AddDocumentComponent } from '../list-document/add-document/add-document.component';
 import { Observable } from 'rxjs';
 import * as swalFunctions from '../../../../shared/data/sweet-alerts';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-document',
@@ -34,12 +34,12 @@ export class MyDocumentComponent implements OnInit {
       { name: "State", prop: "CurrentState" },
       { name: "Uploaded by", prop: "user" },
       { name: "Date Upload", prop: "Date"},
-      { name: "Actions", prop: "ID" },
+      { name: "Actions", prop: ["ID" , "CurrentState"] },
     ];
 
      // private
   private tempData = [];
-  constructor(private docService : DocumentService , private tacheService:TasksService , private modalService: NgbModal , public toastr: ToastrService ) {
+  constructor(private docService : DocumentService ,public router: Router, private tacheService:TasksService , private modalService: NgbModal , public toastr: ToastrService ) {
     this.tempData = this.docList ;
    }
  
@@ -51,6 +51,15 @@ export class MyDocumentComponent implements OnInit {
         console.log("work!!!",this.docList);
       })
    }
+
+   getDocsByState(state : string){
+    this.docService.getDocsByState(state).subscribe((data:Documents[])=>{
+    this.docList = data;
+    this.rows = data ;
+    this.tempData = data ;
+      console.log("work!!!",this.docList);
+    })
+  }
 
    addDoc() {
     const modalRef = this.modalService.open(AddDocumentComponent , {size : "xl" , animation: true});
@@ -75,12 +84,12 @@ export class MyDocumentComponent implements OnInit {
     });
   }
 
-  viewDoc() {
-    const modalRef = this.modalService.open(ViewDocumentComponent , {size : "xl"});
-    modalRef.result.then((result) => {
-    }).catch((error) => {
-      console.log(error);
-    });
+  viewDocument(id : string){
+    this.docService.getDocById(id).subscribe((data : Documents) => {
+      console.log(data);
+      localStorage.setItem("Document",JSON.stringify(data));
+      this.router.navigate(['/Document-view']);
+    })
   }
 
   onDeleteDoc(id: string){
@@ -114,15 +123,22 @@ export class MyDocumentComponent implements OnInit {
         }
       })
   }
-
-  isDraft(id : string){
-    this.docService.getDocById(id).subscribe((res) => {
-      if(res.CurrentState == "Draft"){
-        return true;
-      }else{
-        return false;
-      }
-    })
+  
+     /**
+   * filterByState
+   *
+   * @param event
+   */
+  filterByState(event) {
+    const val = event.target.value.toLowerCase();
+    // filter our data
+    const temp = this.tempData.filter(function (d) {
+      return d.CurrentState.toLowerCase().indexOf(val) !== -1 || !val;
+  });
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
   }
 
     /**

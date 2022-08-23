@@ -1,4 +1,5 @@
 <!-- Filter Datatables -->
+<p>Tasks > My Tasks</p>
 <section id="ngx-datatable-filter">
     <div class="row">
       <!-- <div class="col-12">
@@ -33,16 +34,22 @@
               <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
                 [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
                 [columns]="columns">
-                <ngx-datatable-column name="Document" prop="Document.titre" [width]="40"></ngx-datatable-column>
+                <ngx-datatable-column name="Document" prop="Document.titre" [width]="100"></ngx-datatable-column>
                 <ngx-datatable-column name="Date Upload" prop="DateCreation" [width]="70">
                   <ng-template let-value="value" ngx-datatable-cell-template>
                     {{value | date: 'dd/MM/yyyy HH:mm'}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Action" prop="Action" [width]="70"></ngx-datatable-column>
-                <ngx-datatable-column name="Actions" prop="id" [width]="50">
-                  <ng-template ngx-datatable-cell-template let-value="value">
-                    <a><i class="ft-edit text-primary cursor-pointer mr-2"></i></a>
+                <ngx-datatable-column name="Action" prop="Action" [width]="50"></ngx-datatable-column>
+                <ngx-datatable-column name="Actions" [width]="50">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <a (click)="viewTask(row.ID)" *ngIf="row.Etat == 'Awaiting'"><i class="ft-edit text-primary cursor-pointer mr-2"></i></a>
+                    <div class="badge" *ngIf="row.Etat != 'Awaiting'" [ngClass]="{
+                      'bg-light-success': row.Etat == 'Validated',
+                      'bg-light-danger': row.Etat == 'Rejected'
+                    }">
+                    {{ row.Etat }}
+                  </div>
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>

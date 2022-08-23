@@ -41,22 +41,14 @@
           <span class="align-middle">Social Links</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'connections'}"
-          (click)="setActiveTab('connections')" id="connections-tab" data-toggle="tab" role="tab"
-          aria-controls="connections" aria-selected="false">
-          <i class="ft-link mr-1 align-middle"></i>
-          <span class="align-middle">Connections</span>
-        </a>
-      </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'notifications'}"
           (click)="setActiveTab('notifications')" id="notifications-tab" data-toggle="tab" role="tab"
           aria-controls="notifications" aria-selected="false">
           <i class="ft-bell mr-1 align-middle"></i>
           <span class="align-middle">Notifications</span>
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
   <div class="col-md-9">
@@ -95,12 +87,7 @@
                   <div class="col-12 form-group">
                     <label for="email">E-mail</label>
                     <div class="controls">
-                      <input type="text" formControlName="email" class="form-control" placeholder="E-mail"
-                        [ngClass]="{ 'is-invalid': generalFormSubmitted && gf.email.invalid, 'is-valid': generalFormSubmitted && !gf.email.invalid }"
-                        required>
-                      <div *ngIf="generalFormSubmitted && (gf.email.invalid || gf.email.errors?.required)"
-                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
-                        required</div>
+                      <input type="text" formControlName="email" class="form-control" placeholder="E-mail" disabled required>
                     </div>
                   </div>
                   <div class="col-12">
@@ -109,21 +96,9 @@
                       <a href="javascript:;" class="font-weight-bold text-warning">Resend confirmation</a>
                     </ngb-alert>
                   </div>
-                  <div class="col-12 form-group">
-                    <label for="company">Company</label>
-                    <div class="controls">
-                      <input type="text" formControlName="company" class="form-control" placeholder="Company Name"
-                        aria-invalid="false"
-                        [ngClass]="{ 'is-invalid': generalFormSubmitted && gf.company.invalid, 'is-valid': generalFormSubmitted && !gf.company.invalid }"
-                        required>
-                      <div *ngIf="generalFormSubmitted && (gf.company.invalid || gf.company.errors?.required)"
-                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
-                        required</div>
-                    </div>
-                  </div>
                   <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                     <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
-                    <button type="reset" class="btn btn-secondary mb-1">Cancel</button>
+                    <button type="button" (click)="resetGeneral()" class="btn btn-secondary mb-1">Cancel</button>
                   </div>
                 </div>
               </form>
@@ -183,16 +158,11 @@
               <form [formGroup]="infoForm" (ngSubmit)="onInfoFormSubmit()">
                 <div class="row">
                   <div class="col-12 form-group">
-                    <label for="bio">Bio</label>
-                    <textarea formControlName="bio" class="form-control" placeholder="Your Bio data here..."
-                      rows="3"></textarea>
-                  </div>
-                  <div class="col-12 form-group">
                     <label for="bdate">Birth Date</label>
                     <div class="controls">
                       <input ngbDatepicker (click)="datePicker.toggle()" #datePicker="ngbDatepicker"
                         formControlName="bdate" type="text" class="form-control pickadate" required
-                        [ngClass]="{ 'is-invalid': infoFormSubmitted && inf.bdate.invalid, 'is-valid': infoFormSubmitted && !inf.bdate.invalid }"
+                        
                         placeholder="Birth date">
                       <div *ngIf="infoFormSubmitted && (inf.bdate.invalid || inf.bdate.errors?.required)"
                         class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
@@ -200,18 +170,15 @@
                     </div>
                   </div>
                   <div class="col-12 form-group">
-                    <label for="country">Country</label>
+                    <label for="country">Adresse</label>
                     <div class="controls">
-                      <ng-select [items]="countries" bindLabel="name" placeholder="Select country">
-                      </ng-select>
+                      <input formControlName="adresse" type="text" class="form-control" required
+                        placeholder="Adresse"
+                        [ngClass]="{ 'is-invalid': infoFormSubmitted && inf.adresse.invalid, 'is-valid': infoFormSubmitted && !inf.adresse.invalid }">
+                      <div *ngIf="infoFormSubmitted && (inf.adresse.invalid || inf.adresse.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                        required</div>
                     </div>
-                  </div>
-                  <div class="col-12 form-group">
-                    <label for="languages">Languages</label>
-                    <ng-select [multiple]="true" [(ngModel)]="selectedLanguages" [ngModelOptions]="{standalone: true}">
-                      <ng-option *ngFor="let language of languages" [value]="language.value">{{language.name}}
-                      </ng-option>
-                    </ng-select>
                   </div>
                   <div class="col-12 form-group">
                     <label for="phone">Phone</label>
@@ -225,27 +192,9 @@
                         required</div>
                     </div>
                   </div>
-                  <div class="col-12 form-group">
-                    <label for="website">Website</label>
-                    <input formControlName="website" type="text" class="form-control" placeholder="Website Address">
-                  </div>
-                  <div class="col-12 form-group">
-                    <label for="music">Favourite Music</label>
-                    <ng-select [multiple]="true" [(ngModel)]="selectedMusic" [ngModelOptions]="{standalone: true}">
-                      <ng-option *ngFor="let m of music" [value]="m.value">{{m.name}}
-                      </ng-option>
-                    </ng-select>
-                  </div>
-                  <div class="col-12 form-group">
-                    <label for="movies">Favourite Movies</label>
-                    <ng-select [multiple]="true" [(ngModel)]="selectedMovies" [ngModelOptions]="{standalone: true}">
-                      <ng-option *ngFor="let movie of movies" [value]="movie.value">{{movie.name}}
-                      </ng-option>
-                    </ng-select>
-                  </div>
                   <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                     <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
-                    <button type="reset" class="btn btn-secondary mb-1">Cancel</button>
+                    <button type="button" (click)="resetInfo()" class="btn btn-secondary mb-1">Cancel</button>
                   </div>
                 </div>
               </form>
@@ -256,11 +205,6 @@
               aria-labelledby="social-links-tab">
               <form [formGroup]="socialForm" (ngSubmit)="onSocialFormSubmit()">
                 <div class="row">
-                  <div class="col-12 form-group">
-                    <label for="twitter">Twitter</label>
-                    <input formControlName="twitter" type="text" class="form-control" placeholder="Add link"
-                      value="https://www.twitter.com">
-                  </div>
                   <div class="col-12 form-group">
                     <label for="facebook">Facebook</label>
                     <input formControlName="facebook" type="text" class="form-control" placeholder="Add link">
@@ -274,53 +218,18 @@
                     <input formControlName="linkedin" type="text" class="form-control" placeholder="Add link"
                       value="https://www.linkedin.com">
                   </div>
-                  <div class="col-12 form-group">
-                    <label for="instagram">Instagram</label>
-                    <input formControlName="instagram" type="text" class="form-control" placeholder="Add link">
-                  </div>
-                  <div class="col-12 form-group">
-                    <label for="quora">Quora</label>
-                    <input formControlName="quora" type="text" class="form-control" placeholder="Add link">
-                  </div>
                   <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                    <button type="button" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
-                    <button type="button" class="btn btn-secondary mb-1">Cancel</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            <!-- Connections Tab -->
-            <div class="tab-pane" [ngClass]="{active: activeTab === 'connections'}" id="connections" role="tabpanel"
-              aria-labelledby="connections-tab">
-              <form novalidate>
-                <div class="row">
-                  <div class="col-12 my-2">
-                    <button type="button" class="btn btn-info">Connect to <strong>Twitter</strong></button>
-                  </div>
-                  <div class="col-12 my-2">
-                    <button type="button" class=" btn btn-sm btn-secondary float-right">edit</button>
-                    <h6>You are connected to facebook.</h6>
-                    <p>johndoe@gmail.com</p>
-                  </div>
-                  <div class="col-12 my-2">
-                    <button type="button" class="btn btn-danger">Connect to <strong>Google</strong></button>
-                  </div>
-                  <div class="col-12 my-2">
-                    <button type="button" class=" btn btn-sm btn-secondary float-right">edit</button>
-                    <h6>You are connected to Instagram.</h6>
-                    <p>johndoe@gmail.com</p>
-                  </div>
-                  <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                    <button type="button" class="btn btn-primary mr-sm-2 mb-1">Save changes</button>
-                    <button type="button" class="btn btn-secondary mb-1">Cancel</button>
+                    <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
+                    <button type="button" (click)="resetSocial()" class="btn btn-secondary mb-1">Cancel</button>
                   </div>
                 </div>
               </form>
             </div>
 
             <!-- Notifications Tab -->
-            <div class="tab-pane" [ngClass]="{active: activeTab === 'notifications'}" id="notifications" role="tabpanel"
+            <!--
+              [ngClass]="{ 'is-invalid': infoFormSubmitted && inf.bdate.invalid, 'is-valid': infoFormSubmitted && !inf.bdate.invalid }"
+               <div class="tab-pane" [ngClass]="{active: activeTab === 'notifications'}" id="notifications" role="tabpanel"
               aria-labelledby="notifications-tab">
               <div class="row">
                 <h6 class="col-12 text-bold-400 pl-0">Activity</h6>
@@ -367,7 +276,7 @@
                   <button type="button" class="btn btn-secondary mb-1">Cancel</button>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
