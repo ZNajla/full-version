@@ -47,25 +47,23 @@ export class WorkflowService {
           let workflowList = new Array<Workflow>();
           if (res.responseCode == ResponseCode.OK) {
             if (res.dateSet) {
-              console.log(res.dateSet);
-              res.dateSet.map((x: Workflow) => {
-                console.log(x);
-                workflowList.push(
-                  new Workflow(x.id,x.nomProcessus,x.description)
-                );
-              });
+              // res.dateSet.map((x: Workflow) => {
+              //   workflowList.push(
+              //     new Workflow(x.id,x.nomProcessus,x.description)
+              //   );
+              // });
+              return res.dateSet ;
             }
           }
-          return workflowList;
         })
       );
   }
 
-  public deleteProcess(id : string){
-    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${userInfo?.token}`,
-    });
-    return this.httpClient.delete<ResponseModel>(this.url + `/DeleteProcessus/${id}`,{ headers : headers});
-  }
+  // public deleteProcess(id : string){
+  //   let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${userInfo?.token}`,
+  //   });
+  //   return this.httpClient.delete<ResponseModel>(this.url + `/DeleteProcessus/${id}`,{ headers : headers});
+  // }
 }

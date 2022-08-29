@@ -27,6 +27,7 @@ export class ListWorkflowComponent implements OnInit {
   public limitRef = 10;
   public workflowsList : Workflow[] = [];
   public detailPrecess : ProcessSteps[] = [];
+  isCollapsed = true;
 
   // column header
   public columns = [
@@ -50,7 +51,7 @@ export class ListWorkflowComponent implements OnInit {
     this.workflowsList = data;
     this.rows = data ;
     this.tempData = data ;
-      console.log("work!!!",this.workflowsList);
+      console.table(this.workflowsList);
     })
   }
 
@@ -78,37 +79,37 @@ export class ListWorkflowComponent implements OnInit {
    });
   }
 
-  onDeleteProcess(id: string){
-    swal.fire({
-      title: '<strong> Are you sure to delete </strong>',
-      icon: 'info',
-      html: 'Press yes to delete it !!',
-      showCloseButton: false,
-      showCancelButton: true,
-      focusConfirm: false,
-      confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Yes!',
-      confirmButtonAriaLabel: 'Thumbs up, great!',
-      cancelButtonText: '<i class="fa fa-thumbs-o-down"> No</i>',
-      cancelButtonAriaLabel: 'Thumbs down',
-      buttonsStyling: false,
-      customClass: {
-        confirmButton: 'btn btn-primary',
-        cancelButton: 'btn btn-danger ml-1'
-      }}).then((result) => {
-        if (result.isConfirmed) {
-            this.workflowService.deleteProcess(id).subscribe( data => {
-            console.log(data);
-            this.ngOnInit();
-          });
-          swal.fire(
-            'Deleted!',
-            'The Process has been deleted.',
-            'success'
-          )
-        }
-      })
+  // onDeleteProcess(id: string){
+  //   swal.fire({
+  //     title: '<strong> Are you sure to delete </strong>',
+  //     icon: 'info',
+  //     html: 'Press yes to delete it !!',
+  //     showCloseButton: false,
+  //     showCancelButton: true,
+  //     focusConfirm: false,
+  //     confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Yes!',
+  //     confirmButtonAriaLabel: 'Thumbs up, great!',
+  //     cancelButtonText: '<i class="fa fa-thumbs-o-down"> No</i>',
+  //     cancelButtonAriaLabel: 'Thumbs down',
+  //     buttonsStyling: false,
+  //     customClass: {
+  //       confirmButton: 'btn btn-primary',
+  //       cancelButton: 'btn btn-danger ml-1'
+  //     }}).then((result) => {
+  //       if (result.isConfirmed) {
+  //           this.workflowService.deleteProcess(id).subscribe( data => {
+  //           console.log(data);
+  //           this.ngOnInit();
+  //         });
+  //         swal.fire(
+  //           'Deleted!',
+  //           'The Process has been deleted.',
+  //           'success'
+  //         )
+  //       }
+  //     })
   
-  }
+  // }
    /**
    * updateLimit
    *

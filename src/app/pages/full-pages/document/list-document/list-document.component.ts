@@ -7,6 +7,7 @@ import { DocumentService } from 'app/shared/services/document.service';
 import { TasksService } from 'app/shared/services/tasks.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { ViewDocumentComponent } from '../view-document/view-document.component';
 import { AddDocumentComponent } from './add-document/add-document.component';
 
 @Component({
@@ -33,7 +34,7 @@ export class ListDocumentComponent implements OnInit {
      { name: "State", prop: "CurrentState" },
      { name: "Uploaded by", prop: "user" },
      { name: "Date Upload", prop: "Date"},
-     { name: "Actions", prop:[ "ID" , "Url" , "Titre" ]},
+     { name: "Actions", prop:"ID"},
    ];
 
    // private
@@ -77,12 +78,12 @@ export class ListDocumentComponent implements OnInit {
   }
 
   viewDocument(id : string){
-    this.docService.getDocById(id).subscribe((data : Documents) => {
+      this.docService.getDocById(id).subscribe((data : Documents) => {
       console.log(data);
       localStorage.setItem("Document",JSON.stringify(data));
-      this.router.navigate(['/Document-view']);
-    })
-  }
+      const modalRef = this.modalService.open(ViewDocumentComponent , {size : "xl" , animation: true});
+  });
+}
 
   /**
    * filterUpdate

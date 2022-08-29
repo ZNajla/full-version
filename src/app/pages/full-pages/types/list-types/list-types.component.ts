@@ -54,7 +54,7 @@ export class ListTypesComponent implements OnInit {
   }
 
    addType() {
-     const modalRef = this.modalService.open(AddTypeComponent , {size : "lg"});
+     const modalRef = this.modalService.open(AddTypeComponent);
      modalRef.result.then((result) => {
        console.log(result);
        const res = this.typesService.addType(result) as Observable<any>;

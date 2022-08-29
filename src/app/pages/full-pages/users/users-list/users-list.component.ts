@@ -67,13 +67,13 @@ export class UsersListComponent implements OnInit {
       showCloseButton: false,
       showCancelButton: true,
       focusConfirm: false,
-      confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Yes!',
+      confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Delete!',
       confirmButtonAriaLabel: 'Thumbs up, great!',
-      cancelButtonText: '<i class="fa fa-thumbs-o-down"> No</i>',
+      cancelButtonText: '<i class="fa fa-thumbs-o-down"> Cancel</i>',
       cancelButtonAriaLabel: 'Thumbs down',
       buttonsStyling: false,
       customClass: {
-        confirmButton: 'btn btn-primary',
+        confirmButton: 'btn btn-success',
         cancelButton: 'btn btn-danger ml-1'
       }}).then((result) => {
         if (result.isConfirmed) {

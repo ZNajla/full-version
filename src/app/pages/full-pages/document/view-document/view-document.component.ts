@@ -12,6 +12,7 @@ export class ViewDocumentComponent implements OnInit {
 
   document : Documents ;
   states : any ;
+  docUrl : any ;
 
   constructor(private docService : DocumentService) { }
 
@@ -31,17 +32,31 @@ export class ViewDocumentComponent implements OnInit {
     })
   }
 
-  // makePDF()
-  // { //this.Imprimer()
-  //   let pdf = new jsPDF();
-  //   pdf.html(this.el.nativeElement,{
-  //     callback: (pdf)=>{
-  //       pdf.save("demo.pdf");
-  //     }
-  //   });
-  //   pdf.text("HEllo  ",10,10);
-  //   //pdf.save();
-  // }
+  openFile(){
+    this.docService.downloadFile(this.document.ID).subscribe(response => {
+      let fileName = this.document.Titre;
+      let blob:Blob = response.body as Blob ;
+      let downloadLink = document.createElement('a');
+      downloadLink.download = fileName ;
+      downloadLink.href = window.URL.createObjectURL(blob);
+      window.open(
+        downloadLink.href,
+        '_blank',
+      );
+    });
+  }
+
+  saveFile(): void {
+    this.docService.downloadFile(this.document.ID).subscribe(response => {
+      let fileName = this.document.Titre;
+      let blob:Blob = response.body as Blob ;
+      let downloadLink = document.createElement('a');
+      downloadLink.download = fileName ;
+      downloadLink.href = window.URL.createObjectURL(blob);
+      downloadLink.click();
+    });
+    
+}
 
   ngOnInit(): void {
     this.document = JSON.parse(localStorage.getItem('Document'));

@@ -139,4 +139,27 @@
       </div>
     </div>
   </div>
+
+  <div class="col-xl-6 col-lg-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <h4 class="card-title">
+            <span>My Tasks</span>
+          </h4>
+          <p class="grey"></p>
+          <ul class="list-group mb-3">
+            <li class="list-group-item" *ngFor="let item of listOfTasks">
+              <span>{{item.Document.titre}}</span>
+              <span class="badge float-right" [ngClass]="{
+                'bg-light-primary': item.Etat == 'Awaiting',
+                'bg-light-success': item.Etat == 'Validated',
+                'bg-light-danger': item.Etat == 'Rejected'
+              }">{{item.Etat}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

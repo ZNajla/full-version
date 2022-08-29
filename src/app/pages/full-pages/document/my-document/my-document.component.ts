@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import * as swalFunctions from '../../../../shared/data/sweet-alerts';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ViewDocumentComponent } from '../view-document/view-document.component';
 
 @Component({
   selector: 'app-my-document',
@@ -34,7 +35,7 @@ export class MyDocumentComponent implements OnInit {
       { name: "State", prop: "CurrentState" },
       { name: "Uploaded by", prop: "user" },
       { name: "Date Upload", prop: "Date"},
-      { name: "Actions", prop: ["ID" , "CurrentState"] },
+      { name: "Actions", prop: "ID"},
     ];
 
      // private
@@ -86,11 +87,11 @@ export class MyDocumentComponent implements OnInit {
 
   viewDocument(id : string){
     this.docService.getDocById(id).subscribe((data : Documents) => {
-      console.log(data);
-      localStorage.setItem("Document",JSON.stringify(data));
-      this.router.navigate(['/Document-view']);
-    })
-  }
+    console.log(data);
+    localStorage.setItem("Document",JSON.stringify(data));
+    const modalRef = this.modalService.open(ViewDocumentComponent , {size : "xl" , animation: true});
+});
+}
 
   onDeleteDoc(id: string){
     swal.fire({

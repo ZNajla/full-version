@@ -77,9 +77,9 @@
                   </div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Actions" [width]="50">
+              <ngx-datatable-column name="Actions"  prop="ID" [width]="50">
                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                  <a (click)="viewDocument(row.ID)">
+                  <a (click)="viewDocument(value)">
                     <p>  
                       <i class="ft-edit text-primary cursor-pointer mr-2"> 
                       View Document

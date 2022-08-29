@@ -1,53 +1,102 @@
-<div class="row text-left">
-  <div class="col-md-12 col-lg-8">
-    <div class="card">
-      <!--Collapsible Accordion Starts-->
-      <div class="card-body">
-        <img src="assets/img/sequence ajout document .png" width="600px">
+
+<section class="users-edit">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- Nav-tabs -->
+            <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs justify-content-left">
+              <li [ngbNavItem]="1">
+                <a ngbNavLink class="nav-link d-flex align-items-center">
+                  <i class="ft-user mr-1"></i>
+                  <span class="d-none d-sm-block">Document information</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <!-- Account content starts -->
+                  <div class="mt-2" id="account">
+                    <!-- Account form starts -->
+                    <form novalidate>
+                      <div class="row">
+                        <div class="col-12 d-flex justify-content-end flex-sm-row flex-column mt-3 mt-sm-0">
+                          <button type="button" class="btn btn-primary mr-2" (click)="saveFile()">
+                            <span class="d-flex align-items-center">
+                              <i class="ft-user-plus mr-1"></i>
+                              <span>Download Document</span>
+                            </span>
+                          </button>
+
+                          <button type="button" class="btn btn-primary mr-2" (click)="openFile()">
+                            <span class="d-flex align-items-center">
+                              <i class="ft-user-plus mr-1"></i>
+                              <span>Open Document</span>
+                            </span>
+                          </button>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-username">Document Title</label>
+                              <input type="text" id="users-edit-username" class="form-control" placeholder="Username"
+                                value="{{document.Titre}}" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-name">Uploaded By</label>
+                              <input type="text" id="users-edit-name" class="form-control" placeholder="Name"
+                                value="{{document.user.fullName}}" disabled>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-email">State</label>
+                              <input type="text" id="users-edit-email" class="form-control"
+                                value="{{document.CurrentState}}" disabled>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-email">Date Upload</label>
+                              <input type="text" id="users-edit-email" class="form-control "
+                                value="{{document.DateUpdate}}" disabled>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <span class="d-none d-sm-block primary">Document States</span>
+                      </div>
+                      <div class="row match-height">
+                        <div *ngFor="let state of states" class="col-md-4 col-12 mr-2 badge " [ngClass]="{
+                          'bg-light-primary': state.StateDocument == 'Awaiting',
+                          'bg-light-success': state.StateDocument == 'Validated',
+                          'bg-light-danger': state.StateDocument == 'Rejected'
+                          }">
+                          <p>Step Number : {{state.StepNumber}}</p>
+                          <p>Action : {{state.Action}}</p>
+                          <p>State : {{state.StateDocument}}</p>
+                          <p>Comment : {{state.Comment}}</p>
+                        </div>
+                      </div>
+                    </form>
+                    <!-- Account form ends -->
+                  </div>
+                  <!-- Account content ends -->
+                </ng-template>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div [ngbNavOutlet]="nav"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <!--Collapsible Accordion Ends-->
   </div>
-  <div class="col-md-12 col-lg-4">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Document Informations</h4>
-      </div>
-      <div class="card-body">
-        <!--One open panel at a time Starts-->
-        <ngb-accordion [closeOthers]="true" activeIds="1">
-          <ngb-panel id="static-1" title="General Information">
-            <ng-template ngbPanelContent>
-              <p class="m-0">Title : {{document.Titre}}</p>
-              <p class="m-0">Date Upload : {{document.Date | date: "dd/MM/yyyy"}}</p>
-              <p class="m-0">uploaded By : {{document.user.fullName}}</p>
-              <p class="m-0">State : {{document.CurrentState}}</p>
-            </ng-template>
-          </ngb-panel>
-          <ngb-panel id="static-2" title="Document States">
-            <ng-template ngbPanelContent>
-              <div *ngFor="let state of states" class="badge" [ngClass]="{
-                'bg-light-primary': state.stateDocument == '0',
-                'bg-light-success': state.stateDocument == '3',
-                'bg-light-danger': state.stateDocument == '4'
-                }">
-                <p>Step Number : {{state.stepNumber}}</p>
-                <p>Action : {{state.action}}</p>
-                <p>State : {{state.stateDocument}}</p>
-                <p>Comment : {{state.comment}}</p>
-              </div>
-              <!-- <span class="badge bg-light-primary mb-1 mr-2">
-                <p>State Number : </p>
-                <p>Action : </p>
-                <p>User : </p>
-                <p>State : </p>
-                <p>Comment :</p>
-              </span> -->
-            </ng-template>
-          </ngb-panel>
-        </ngb-accordion>
-        <!--One open panel at a time Ends-->
-      </div>
-    </div>
-  </div>
-</div>
+</section>

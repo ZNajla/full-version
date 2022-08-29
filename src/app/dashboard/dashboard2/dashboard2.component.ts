@@ -27,19 +27,22 @@ export class Dashboard2Component {
 
   numberOfMyDoc : number ;
   numberOfMyTasks : number ;
+  listOfTasks : any ;
 
   constructor(private docService : DocumentService , private tacheService:TasksService) {}
 
   getMyDocument(){
     this.docService.getDocByIdUser().subscribe((data) => {
       this.numberOfMyDoc = data.length ;
-    })
+    });
   }
 
   getMyTasks(){
     this.tacheService.getTasksByUserId().subscribe((data) => {
       this.numberOfMyTasks = data.length ;
-    })
+      console.table(data);
+      this.listOfTasks = data;
+    });
   }
   // Line chart configuration Starts
   WidgetlineChart: Chart = {

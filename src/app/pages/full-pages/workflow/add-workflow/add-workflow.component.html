@@ -55,9 +55,9 @@
                         [navigationSymbol]="{ symbol: '&#xf0b1;', fontFamily: 'FontAwesome' }">
                         <form [formGroup]="detail" class="editForm" novalidate>
                             <br />
-                            <div class='row justify-content'>
+                            <div class='row'>
                                 <div class='col-12'>
-                                    <div class="">
+                                    <div class="justify-content-center">
                                         <div class="card-content">
                                             <div class="card-body">
                                                 <div class="form-row">
@@ -80,7 +80,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="justify-content-end">
+                                <div class="col-12 d-flex justify-content-end flex-sm-row flex-column mt-3 mt-sm-0">
                                     <button type="button" class="btn gradient-mint mr-1" ngbPopover="Add another Action"
                                         triggers="mouseenter:mouseleave" (click)="AddDetail()">
                                         ADD Step

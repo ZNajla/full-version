@@ -43,7 +43,7 @@
                 <ngx-datatable-column name="Action" prop="Action" [width]="50"></ngx-datatable-column>
                 <ngx-datatable-column name="Actions" [width]="50">
                   <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                    <a (click)="viewTask(row.ID)" *ngIf="row.Etat == 'Awaiting'"><i class="ft-edit text-primary cursor-pointer mr-2"></i></a>
+                    <a (click)="viewTask(row.ID)" *ngIf="row.Etat == 'Awaiting'"><i class="ft-edit text-primary cursor-pointer mr-2">View Task</i></a>
                     <div class="badge" *ngIf="row.Etat != 'Awaiting'" [ngClass]="{
                       'bg-light-success': row.Etat == 'Validated',
                       'bg-light-danger': row.Etat == 'Rejected'

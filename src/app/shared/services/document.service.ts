@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ResponseCode } from '../Enums/ResponseCode';
 import { ResponseModel } from '../Models/ResponseModel';
+import { Observable } from 'rxjs';
+import { DocStates } from '../Models/DocStates';
 
 @Injectable({
   providedIn: 'root'
@@ -237,9 +239,32 @@ export class DocumentService {
       map((res)=>{
         if(res.responseCode == 1){
           console.log(res.dateSet);
-          return (res.dateSet);
+          if(res.dateSet){
+            let docState = new Array<DocStates>();
+          res.dateSet.map((x: any) => {
+            switch (x.stateDocument) {
+              case 0:
+                x.stateDocument = 'Awaiting'
+                break;
+              case 3:
+                x.stateDocument = 'Validated'
+                break;
+              case 4:
+                x.stateDocument = 'Rejected'
+                break;}
+             docState.push(
+               new DocStates( x.id , x.action , x.comment , x.stateDocument , x.stepNumber , x.date )
+             );
+           });
+           return (docState);
+          }
+          
         }
       })
     )
   }
+
+  downloadFile(id: string){
+    return this.httpClient.get(this.url+`/Download/${id}`, {observe: 'response', responseType: 'blob'});
+}
 }
