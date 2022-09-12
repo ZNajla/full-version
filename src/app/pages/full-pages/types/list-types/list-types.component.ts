@@ -9,6 +9,9 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AddTypeComponent } from '../add-type/add-type.component';
+import { WorkflowService } from 'app/shared/services/workflow.service';
+import { ViewTypeComponent } from '../view-type/view-type.component';
+import { Workflow } from 'app/shared/Models/WorkflowModel';
 
 @Component({
   selector: 'app-list-types',
@@ -22,23 +25,25 @@ export class ListTypesComponent implements OnInit {
  
   swal =  swalFunctions;
   public typeList : Types[] = [];
-  
+  public workflow : Workflow ;
+
   // row data
   public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
 
+
   // column header
   public columns = [
     { name: "Type", prop: "Nom" },
-    { name: "Actions", prop: "ID" },
+    { name: "Actions", prop: "Process.id" },
   ];
 
   // private
   private tempData = [];
 
 
-  constructor( private router:Router , private typesService : TypesService , public toastr: ToastrService , private modalService: NgbModal ) { 
+  constructor( private workflowService:WorkflowService , private typesService : TypesService , public toastr: ToastrService , private modalService: NgbModal ) { 
     this.tempData = this.typeList;
   }
 
@@ -68,6 +73,18 @@ export class ListTypesComponent implements OnInit {
        console.log(error);
      });
    }
+
+   viewWorkFlow(id : string) {
+    console.log(id);
+    this.workflowService.getWorkFlowsById(id).subscribe((data : Workflow) => {
+      this.workflow = data ;
+      console.log(this.workflow);
+      const modalRef = this.modalService.open(ViewTypeComponent , {size : "xl"});
+      modalRef.componentInstance.workflow = this.workflow;
+    });
+    
+  }
+
    /**
    * filterUpdate
    *

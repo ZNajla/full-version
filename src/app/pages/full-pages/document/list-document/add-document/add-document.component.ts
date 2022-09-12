@@ -17,12 +17,13 @@ export class AddDocumentComponent implements OnInit {
 
   ErrorMessage : string ;
   public types : Types[] = [];
+  docFormSubmitted = false;
 
   public docForm = this.formBuilder.group({
     Reference: ['', Validators.required],
     Titre: ['', [Validators.required, Validators.email]],
     NbPage: ['', Validators.required],
-    MotCle: ['', Validators.required],
+    MotCle: [''],
     Version: ['', [Validators.required]],
     TypesId: ['', Validators.required],
     CurrentState : [false]
@@ -36,6 +37,10 @@ export class AddDocumentComponent implements OnInit {
   formData = new FormData();
 
   constructor(public activeModal: NgbActiveModal , private typesService : TypesService , private docService : DocumentService ,private formBuilder: FormBuilder , public router: Router , private httpClient: HttpClient) { }
+
+  get rf() {
+    return this.docForm.controls;
+  }
 
   getListTypes(){
     this.typesService.getAllTypes().subscribe((data:Types[])=>{
@@ -54,10 +59,15 @@ export class AddDocumentComponent implements OnInit {
     this.fileName = fileToUpload.name;
     this.docForm.controls['Titre'].setValue(this.fileName);
     this.fileNbPage = fileToUpload.size;
+    console.log(fileToUpload.type);
     console.log(this.fileNbPage);
   }
 
   submitDoc(){
+    this.docFormSubmitted = true;
+    // if (this.docForm.invalid) {
+    //   return;
+    // }
     console.log(this.docForm.controls['CurrentState'].value);
     this.httpClient.post<ResponseModel>('https://localhost:7268/api/Document/upload', this.formData)
     .subscribe({

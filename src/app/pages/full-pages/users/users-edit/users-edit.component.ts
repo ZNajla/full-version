@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { RoleService } from 'app/shared/auth/role.service';
 import { Role } from 'app/shared/Models/RoleModel';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-edit',
@@ -34,7 +35,7 @@ export class UsersEditComponent implements OnInit {
     password:['']
   });
 
-  constructor(private formBuilder: FormBuilder, public toastr: ToastrService ,private userService : UsersService ,private roleService:RoleService) { }
+  constructor(private formBuilder: FormBuilder,private router:Router , public toastr: ToastrService ,private userService : UsersService ,private roleService:RoleService) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -94,6 +95,7 @@ export class UsersEditComponent implements OnInit {
       if(data.responseCode == 1){
         console.log("user up to date");
         this.toastr.success('User is uptodate!', 'Success');
+        this.router.navigate([`/users-list`]);
       }else{
         this.toastr.error(data.responseMessage, 'ERROR');
       }
@@ -129,6 +131,7 @@ export class UsersEditComponent implements OnInit {
       if(data.responseCode == 1){
         console.log("user up to date");
         this.toastr.success('User is uptodate!', 'Success');
+        this.router.navigate([`/users-list`]);
       }else{
         this.toastr.error(data.responseMessage, 'ERROR');
       }

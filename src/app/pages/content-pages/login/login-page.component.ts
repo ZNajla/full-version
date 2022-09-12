@@ -63,14 +63,17 @@ export class LoginPageComponent {
         }else{
           this.router.navigate(['/dashboard-User'])
         }
-        
       }else{
+        this.ngOnInit();
         this.isLoginFailed = true;
+        this.ngOnInit();
         this.ErrorMessage = data.responseMessage ;
         this.spinner.hide();
+        this.ngOnInit();
         console.log('error: ' + data.responseMessage);
       }
       });
   }
 
+  ngOnInit(){}
 }

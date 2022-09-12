@@ -5,7 +5,7 @@
         <button type="button" class="btn btn-primary mr-2" (click)="addType()">
           <span class="d-flex align-items-center">
             <i class="ft-plus mr-1"></i>
-            <span>Create</span>
+            <span>Add Type</span>
           </span>
         </button>
       </div>
@@ -32,9 +32,9 @@
               <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50"
                 rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true" [columns]="columns">
                 <ngx-datatable-column name="Type" prop="Nom" [width]="150"></ngx-datatable-column>
-                <ngx-datatable-column name="Actions" prop="ID" [width]="50">
+                <ngx-datatable-column name="Actions" prop="Process.id" [width]="50">
                   <ng-template ngx-datatable-cell-template let-value="value">
-                    <a><i class="ft-edit text-primary cursor-pointer mr-2"></i></a>
+                    <a (click) = "viewWorkFlow(value)"><i class="ft-edit text-primary cursor-pointer mr-2"></i> View Workflow</a>
                     <!-- <a><i class="ft-trash-2 text-danger cursor-pointer"></i></a> -->
                   </ng-template>
                 </ngx-datatable-column>

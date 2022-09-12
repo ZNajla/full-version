@@ -21,14 +21,14 @@
                         <div class="col-12 d-flex justify-content-end flex-sm-row flex-column mt-3 mt-sm-0">
                           <button type="button" class="btn btn-primary mr-2" (click)="saveFile()">
                             <span class="d-flex align-items-center">
-                              <i class="ft-user-plus mr-1"></i>
+                              <i class="ft-download mr-1"></i>
                               <span>Download Document</span>
                             </span>
                           </button>
 
                           <button type="button" class="btn btn-primary mr-2" (click)="openFile()">
                             <span class="d-flex align-items-center">
-                              <i class="ft-user-plus mr-1"></i>
+                              <i class="ft-eye mr-1"></i>
                               <span>Open Document</span>
                             </span>
                           </button>
@@ -61,9 +61,9 @@
 
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-email">Date Upload</label>
+                              <label for="users-edit-email">Type de document</label>
                               <input type="text" id="users-edit-email" class="form-control "
-                                value="{{document.DateUpdate}}" disabled>
+                                value="{{document.type.nom}}" disabled>
                             </div>
                           </div>
                         </div>

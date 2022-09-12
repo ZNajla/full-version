@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -9,14 +9,25 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 
 export class ForgotPasswordPageComponent {
-    @ViewChild('f') forogtPasswordForm: NgForm;
+    // @ViewChild('f') forogtPasswordForm: NgForm;
+
+    forgetPasswordFormSubmitted = false;
+
+    public forgetPasswordForm = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]],
+    });
 
     constructor(private router: Router,
-        private route: ActivatedRoute) { }
+        private route: ActivatedRoute , private formBuilder: FormBuilder) { }
 
     // On submit click, reset form fields
     onSubmit() {
-        this.forogtPasswordForm.reset();
+        this.forgetPasswordFormSubmitted = true;
+        if (this.forgetPasswordForm.invalid) {
+            return;
+        }
+        console.log(this.forgetPasswordForm.value);
+        // this.forgetPasswordForm.reset;
     }
 
     // On login link click

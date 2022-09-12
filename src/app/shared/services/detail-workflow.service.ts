@@ -69,7 +69,7 @@ export class DetailWorkflowService {
             if (res.dateSet) {
               res.dateSet.map((x: any) => {
                 console.log(x);
-                detailsList.push( new ProcessSteps(x.step , x.action, x.username , x.userEmail));
+                detailsList.push( new ProcessSteps(x.step , x.action, x.user.userName , x.user.email));
               });
             }
           }else{

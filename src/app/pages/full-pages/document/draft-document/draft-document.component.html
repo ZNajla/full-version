@@ -1,0 +1,74 @@
+<!-- Filter Datatables -->
+<p>Document > My Draft Documents</p>
+<section id="ngx-datatable-filter">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <!-- ngx-datatable-filter -->
+              <fieldset class="form-group">
+                <label class="mr-3">Show
+                  <select name="users-list-select"
+                    class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                    (click)="updateLimit($event)">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>entries
+                </label>
+
+                <label for="ngx-filter-ref" class="float-right">Search:
+                  <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200 ml-1"
+                    type="text" (keyup)="filterUpdate($event)" />
+                </label>
+              </fieldset>
+              <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
+                [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
+                [columns]="columns">
+                <ngx-datatable-column name="Document" prop="Titre" [width]="100"></ngx-datatable-column>
+                <ngx-datatable-column name="Uploaded by" prop="user" [width]="120">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="d-flex align-items-center">
+                      <div class="cell-line-height">
+                        <p class="font-small-1 line-height-1 mb-0">{{ value.fullName }}</p>
+                        <span class="text-muted font-small-2">
+                          {{ value.email }}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Date Upload" prop="Date" [width]="70">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value | date: 'dd/MM/yyyy HH:mm'}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="State" prop="CurrentState" [width]="70">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    <div class="badge" [ngClass]="{
+                      'bg-light-primary': value == 'Awaiting',
+                      'bg-light-success': value == 'Validated',
+                      'bg-light-danger': value == 'Rejected',
+                      'bg-light-warning':value == 'In Progress',
+                      'bg-light-secondary':value == 'Draft'
+                    }">
+                    {{ value }}
+                  </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Actions" prop="ID" [width]="50">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" >
+                    <a (click)="onDeleteDoc(value)" *ngIf="row.CurrentState == 'Draft'"><i class="ft-trash-2 text-danger cursor-pointer mr-2"></i></a>
+                    <a (click)="viewDocument(value)"> <i class="ft-edit text-primary cursor-pointer mr-2"> </i></a>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              <!-- ngx-datatable-filter -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Filter Datatables -->

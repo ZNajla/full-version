@@ -98,7 +98,7 @@
                   </div>
                   <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                     <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
-                    <button type="button" (click)="resetGeneral()" class="btn btn-secondary mb-1">Cancel</button>
+                    <button type="button" (click)="resetGeneral()" class="btn btn-secondary mb-1">Reset</button>
                   </div>
                 </div>
               </form>
@@ -143,11 +143,15 @@
                       *ngIf="changePasswordFormSubmitted && (cpf.retypeNewPassword.invalid || cpf.retypeNewPassword.errors?.required)"
                       class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
                     </div>
+                    <div *ngIf="changePasswordFormSubmitted && (cpf.retypeNewPassword.errors?.mustMatch)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Passwords must
+                      match
+                    </div>
                   </div>
                 </div>
                 <div class="d-flex flex-sm-row flex-column justify-content-end">
                   <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
-                  <button type="reset" class="btn btn-secondary mb-1">Cancel</button>
+                  <button type="reset" class="btn btn-secondary mb-1">Reset</button>
                 </div>
               </form>
             </div>
@@ -157,7 +161,7 @@
               aria-labelledby="info-tab">
               <form [formGroup]="infoForm" (ngSubmit)="onInfoFormSubmit()">
                 <div class="row">
-                  <div class="col-12 form-group">
+                  <!-- <div class="col-12 form-group">
                     <label for="bdate">Birth Date</label>
                     <div class="controls">
                       <input ngbDatepicker (click)="datePicker.toggle()" #datePicker="ngbDatepicker"
@@ -168,7 +172,7 @@
                         class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
                         required</div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="col-12 form-group">
                     <label for="country">Adresse</label>
                     <div class="controls">
@@ -194,7 +198,7 @@
                   </div>
                   <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                     <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
-                    <button type="button" (click)="resetInfo()" class="btn btn-secondary mb-1">Cancel</button>
+                    <button type="button" (click)="resetInfo()" class="btn btn-secondary mb-1">Reset</button>
                   </div>
                 </div>
               </form>
@@ -220,7 +224,7 @@
                   </div>
                   <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                     <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
-                    <button type="button" (click)="resetSocial()" class="btn btn-secondary mb-1">Cancel</button>
+                    <button type="button" (click)="resetSocial()" class="btn btn-secondary mb-1">Reset</button>
                   </div>
                 </div>
               </form>

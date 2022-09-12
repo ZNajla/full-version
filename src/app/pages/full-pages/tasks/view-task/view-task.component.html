@@ -1,4 +1,101 @@
-<section>
+
+<section class="users-edit">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- Nav-tabs -->
+            <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs justify-content-left">
+              <li [ngbNavItem]="1">
+                <a ngbNavLink class="nav-link d-flex align-items-center">
+                  <i class="ft-user mr-1"></i>
+                  <span class="d-none d-sm-block">Your Task</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <!-- Account content starts -->
+                  <div class="mt-2" id="account">
+                    <!-- Account form starts -->
+                    <form novalidate>
+                      <div class="row">
+                        <div class="col-12 d-flex justify-content-end flex-sm-row flex-column mt-3 mt-sm-0">
+                          <button type="button" class="btn btn-primary mr-2" (click)="saveFile()">
+                            <span class="d-flex align-items-center">
+                              <i class="ft-download mr-1"></i>
+                              <span>Download Document</span>
+                            </span>
+                          </button>
+
+                          <button type="button" class="btn btn-primary mr-2" (click)="openFile()">
+                            <span class="d-flex align-items-center">
+                              <i class="ft-eye mr-1"></i>
+                              <span>Open Document</span>
+                            </span>
+                          </button>
+                        </div>
+          
+                        <div class="form-group">
+                          <div class="controls mr-2">
+                            <label for="users-edit-username">Document Title</label>
+                            <input type="text" id="users-edit-username" class="form-control" placeholder="Username"
+                              value="{{task.Document.titre}}" disabled>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="controls mr-2">
+                            <label for="users-edit-name">Uploaded By</label>
+                            <input type="text" id="users-edit-name" class="form-control" placeholder="Name"
+                              value="{{task.Document.user.fullName}}" disabled>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <div class="controls mr-2">
+                            <label for="users-edit-email">Your Task</label>
+                            <input type="text" id="users-edit-email" class="form-control"
+                              value="{{task.Action}}" disabled>
+                          </div>
+                        </div>
+
+                      </div>
+                      
+                    </form>
+                      <div class="row">
+                        <span class="d-none d-sm-block primary">Comment : </span>
+                      </div>
+                        <form [formGroup]="taskForm">
+                          <div class="row">
+                            <div class="col-12 col-md-12">
+                              <div class="form-group">
+                                <textarea formControlName="comment" rows="4" class="form-control round" name="comment2" placeholder=" Your Comment"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <button type="button" (click)="onAccept()" class="btn btn-success bg-light-success mr-1 mb-1">Accept</button>
+                            <button type="button" (click)="onReject()" class="btn btn-danger bg-light-danger mr-1 mb-1">Reject</button>
+                          </div>
+                      </form>
+                    <!-- Account form ends -->
+                  </div>
+                  <!-- Account content ends -->
+                </ng-template>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div [ngbNavOutlet]="nav"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <section>
     <div class="row auth-height m-0">
       <div class="col-12 d-flex align-items-center justify-content-center ">
         <div class="row m-0">
@@ -21,4 +118,4 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->

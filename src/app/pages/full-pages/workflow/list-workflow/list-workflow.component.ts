@@ -72,6 +72,7 @@ export class ListWorkflowComponent implements OnInit {
         console.log(data);
         this.detailProcessService.addDetailProcess(result.details , data).subscribe((data) =>{
           console.log(data);
+          this.ngOnInit();
         });
       });
       this.ngOnInit();

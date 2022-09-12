@@ -129,4 +129,20 @@ export class UsersService {
       ) 
     );
   }
+
+  public changePassword(form : any){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+
+    return this.httpClient.put<ResponseModel>(this.url+`/ChangePassword/${userInfo.id}`,form,{headers : headers}).pipe(
+      map((res)=> {
+        console.log(res.responseMessage);
+        return res ;
+      }
+      ) 
+    );
+
+  }
 }

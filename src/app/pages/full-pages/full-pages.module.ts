@@ -35,6 +35,8 @@ import { MyDocumentComponent } from './document/my-document/my-document.componen
 import { AddTypeComponent } from './types/add-type/add-type.component';
 import { ViewTaskComponent } from './tasks/view-task/view-task.component';
 import { MatchHeightModule } from "app/shared/directives/match-height.directive";
+import { ViewTypeComponent } from './types/view-type/view-type.component';
+import { DraftDocumentComponent } from './document/draft-document/draft-document.component';
 
 @NgModule({
   imports: [
@@ -74,6 +76,8 @@ import { MatchHeightModule } from "app/shared/directives/match-height.directive"
     MyDocumentComponent,
     AddTypeComponent,
     ViewTaskComponent,
+    ViewTypeComponent,
+    DraftDocumentComponent,
   ],
 })
 export class FullPagesModule {}

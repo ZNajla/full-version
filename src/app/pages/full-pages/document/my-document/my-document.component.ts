@@ -92,38 +92,6 @@ export class MyDocumentComponent implements OnInit {
     const modalRef = this.modalService.open(ViewDocumentComponent , {size : "xl" , animation: true});
 });
 }
-
-  onDeleteDoc(id: string){
-    swal.fire({
-      title: '<strong> Are you sure to delete </strong>',
-      icon: 'info',
-      html: 'Press yes to delete it !!',
-      showCloseButton: false,
-      showCancelButton: true,
-      focusConfirm: false,
-      confirmButtonText: '<i class="fa fa-thumbs-o-up"></i> Yes!',
-      confirmButtonAriaLabel: 'Thumbs up, great!',
-      cancelButtonText: '<i class="fa fa-thumbs-o-down"> No</i>',
-      cancelButtonAriaLabel: 'Thumbs down',
-      buttonsStyling: false,
-      customClass: {
-        confirmButton: 'btn btn-primary',
-        cancelButton: 'btn btn-danger ml-1'
-      }}).then((result) => {
-        if (result.isConfirmed) {
-          console.log(id);
-            this.docService.deleteDocument(id).subscribe( data => {
-            console.log(data);
-            this.ngOnInit();
-          });
-          swal.fire(
-            'Deleted!',
-            'Document has been deleted.',
-            'success'
-          )
-        }
-      })
-  }
   
      /**
    * filterByState

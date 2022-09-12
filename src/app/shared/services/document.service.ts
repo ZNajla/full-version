@@ -266,5 +266,46 @@ export class DocumentService {
 
   downloadFile(id: string){
     return this.httpClient.get(this.url+`/Download/${id}`, {observe: 'response', responseType: 'blob'});
-}
+  }
+
+  getMyDraft(){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+    return this.httpClient.get<ResponseModel>(this.url +`/GetMyDraft/${userInfo.id}`, { headers: headers })
+      .pipe(map((res) => {
+        console.log(res);
+          let documentList = new Array<Documents>();
+          if (res.responseCode == ResponseCode.OK) {
+            if (res.dateSet) {
+              res.dateSet.map((x: any) => {
+               switch (x.currentState) {
+                  case 0:
+                    x.currentState = 'Awaiting'
+                    break;
+                  case 1:
+                    x.currentState = 'In Progress'
+                    break;
+                  case 2:
+                    x.currentState = 'Draft'
+                    break;
+                  case 3:
+                    x.currentState = 'Validated'
+                    break;
+                  case 4:
+                    x.currentState = 'Rejected'
+                    break;
+                }
+                documentList.push(
+                  new Documents( x.id , x.url , x.reference , x.titre , x.nbPage , x.motCle , x.version , x.date ,x.dateUpdate,x.currentState,x.currentNumberState, x.user , x.types)
+                );
+              });
+            }
+          }
+          console.log(documentList);
+          return documentList;
+        })
+      );
+  }
 }

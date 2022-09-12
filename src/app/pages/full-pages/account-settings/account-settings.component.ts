@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UsersService } from 'app/shared/auth/users.service';
 import { ToastrService } from 'ngx-toastr';
+import { MustMatch } from '../../../shared/directives/must-match.validator';
 
 @Component({
   selector: 'app-account-settings',
@@ -24,10 +25,12 @@ export class AccountSettingsComponent implements OnInit {
     email: new FormControl('', [Validators.required])
   });
 
-  changePasswordForm = new FormGroup({
-    oldPassword: new FormControl('', [Validators.required]),
-    newPassword: new FormControl('', [Validators.required]),
-    retypeNewPassword: new FormControl('', [Validators.required])
+  changePasswordForm = this.formBuilder.group({
+    oldPassword: ['', Validators.required],
+    newPassword: ['', [Validators.required, Validators.minLength(6)]],
+    retypeNewPassword: ['', [Validators.required]]
+  }, {
+    validator: MustMatch('newPassword', 'retypeNewPassword')
   });
 
   infoForm = new FormGroup({
@@ -42,7 +45,7 @@ export class AccountSettingsComponent implements OnInit {
     linkedin: new FormControl('')
   });
 
-  constructor(private userService : UsersService , public toastr: ToastrService) { }
+  constructor(private userService : UsersService , public toastr: ToastrService , private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     let userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -114,6 +117,21 @@ export class AccountSettingsComponent implements OnInit {
     if (this.changePasswordForm.invalid) {
       return;
     }
+
+    const body = {
+      NewPassword : this.changePasswordForm.controls['newPassword'].value,
+      CurrentPassword : this.changePasswordForm.controls['oldPassword'].value,
+    }
+
+    this.userService.changePassword(body).subscribe((data) => {
+      if(data.responseCode == 1){
+        this.toastr.success('Your Password changed successfuly', 'Success');
+        this.ngOnInit();
+        this.changePasswordForm.reset;
+      }else{
+        this.toastr.error(data.responseMessage, 'ERROR');
+      }
+    })
   }
 
   onInfoFormSubmit() {

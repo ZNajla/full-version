@@ -22,6 +22,7 @@ export const ROUTES: RouteInfo[] = [
     path: '', title: 'Document', icon: 'ft-book', class: 'has-sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
       { path: '/doc-list', title: 'All Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'Admin'},
       { path: '/my-doc', title: 'My Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'Admin'},
+      { path: 'My-Draft-Document', title: 'Draft Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'Admin'},
       { path: 'types-list', title: 'Documents Types', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'Admin'},
     ], owner : 'Admin'
   },
@@ -32,6 +33,7 @@ export const ROUTES: RouteInfo[] = [
     path: '', title: 'Document', icon: 'ft-book', class: 'has-sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
       { path: '/doc-list', title: 'All Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'User'},
       { path: '/my-doc', title: 'My Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'User'},
+      { path: 'My-Draft-Document', title: 'Draft Documents', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] , owner :'User'},
     ], owner : 'User'
   },
   {

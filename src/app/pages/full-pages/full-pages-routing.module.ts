@@ -17,6 +17,7 @@ import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component';
 import { ViewDocumentComponent } from './document/view-document/view-document.component';
 import { MyDocumentComponent } from './document/my-document/my-document.component';
 import { ListTypesComponent } from './types/list-types/list-types.component';
+import { DraftDocumentComponent } from './document/draft-document/draft-document.component';
 
 const routes: Routes = [
   {
@@ -133,6 +134,13 @@ const routes: Routes = [
       {
         path: 'Document-view',
         component: ViewDocumentComponent,
+        data: {
+          title: 'List',
+        }
+      },
+      {
+        path: 'My-Draft-Document',
+        component: DraftDocumentComponent,
         data: {
           title: 'List',
         }

@@ -56,16 +56,18 @@ export class ListTasksComponent implements OnInit {
     this.tacheService.getTaskById(id).subscribe((data : Task) => {
       this.task = data ;
       console.log(this.task);
-      const modalRef = this.modalService.open(ViewTaskComponent , {size : "xl"});
+      const modalRef = this.modalService.open(ViewTaskComponent , {size : "lg"});
       modalRef.componentInstance.task = this.task;
 
       modalRef.result.then((result) => {
         console.log(result);
         this.docService.updateDocState(this.task.ID , result).subscribe((data2) =>{
           console.log(data2); 
+        this.ngOnInit();
           if(result.StateDocument == 3){
             this.tacheService.addTache(this.task.Document.id).subscribe((data3) =>{
               console.log(data3.responseMessage);
+              this.ngOnInit();
             })
           }
         });

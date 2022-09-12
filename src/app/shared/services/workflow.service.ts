@@ -59,6 +59,23 @@ export class WorkflowService {
       );
   }
 
+  public getWorkFlowsById(id : string) {
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${userInfo?.token}`,
+    });
+    return this.httpClient.get<ResponseModel>(this.url + `/GetProcessById/${id}`, { headers: headers }).pipe(map((res) => {
+          console.log("resultat : "+res);
+          if (res.responseCode == 1) {
+            let workflow : Workflow;
+              console.log(res.dateSet);
+              workflow = new Workflow(res.dateSet.id , res.dateSet.nomProcessus , res.dateSet.description);
+              return workflow ;
+          }
+        })
+      );
+  }
+
   // public deleteProcess(id : string){
   //   let userInfo = JSON.parse(localStorage.getItem('userInfo'));
   //   const headers = new HttpHeaders({

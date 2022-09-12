@@ -11,21 +11,32 @@
             <p>Fill the below form to add new document.</p>
             <form [formGroup]="docForm">
                 <div class="form-row">
-                  <div class="form-group mb-2">
-                    <label for="basic-form-8">Select File</label>
-                    <!-- (click)="file.click()" -->
-                    <input type="file" #file class="form-control-file" id="basic-form-8" (change)="uploadFile(file.files)">
+                  <div class="form-group">
+                    <div class="custom-file">
+                      <input type="file" #file class="custom-file-input" id="inputGroupFile01" (change)="uploadFile(file.files)" accept=".pdf" required>
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                      <div *ngIf="docFormSubmitted && rf.Titre.errors?.required" class="help-block mt-1 text-danger">
+                        <i class="ft-alert-circle align-middle"></i> File is required
+                      </div>
                   </div>
+                  </div>
+
                   <div class="col-md-6 col-12">
                     <div class="form-group mb-2">
-                      <label for="basic-form-1">Titre document</label>
-                      <input type="text" id="basic-form-1" class="form-control round" name="fname" formControlName="Titre">
+                      <label for="basic-form-1">Document Title</label>
+                      <input type="text" id="basic-form-1" class="form-control round" name="fname" formControlName="Titre" required>
+                      <div *ngIf="docFormSubmitted && rf.Titre.errors?.required" class="help-block mt-1 text-danger">
+                        <i class="ft-alert-circle align-middle"></i> File title is required
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6 col-12">
                     <div class="form-group mb-2">
                       <label for="basic-form-2">Reference</label>
-                      <input type="text" id="basic-form-2" class="form-control round" name="lname" formControlName="Reference">
+                      <input type="text" id="basic-form-2" class="form-control round" name="lname" formControlName="Reference" required>
+                      <div *ngIf="docFormSubmitted && rf.Reference.errors?.required" class="help-block mt-1 text-danger">
+                        <i class="ft-alert-circle align-middle"></i> Reference is required
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -33,28 +44,37 @@
                   <div class="col-md-6 col-12">
                     <div class="form-group mb-2">
                       <label for="basic-form-3">Number Of pages</label>
-                      <input type="text" id="basic-form-3" class="form-control round" name="NbPage" formControlName="NbPage">
+                      <input type="text" id="basic-form-3" class="form-control round" name="NbPage" formControlName="NbPage" required>
+                      <div *ngIf="docFormSubmitted && rf.Reference.errors?.required" class="help-block mt-1 text-danger">
+                        <i class="ft-alert-circle align-middle"></i> Reference is required
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6 col-12">
                     <div class="form-group mb-2">
                       <label for="basic-form-4">key words</label>
-                      <input type="text" id="basic-form-4" class="form-control round" name="MotCle" formControleName="MotCle">
+                      <input type="text" id="basic-form-4" class="form-control round" name="MotCle" formControleName="MotCle" >
                     </div>
                   </div>
                 </div>
                 <div class="form-group mb-2">
                   <label for="basic-form-5">version</label>
-                  <input type="text" id="basic-form-5" class="form-control round" name="Version" formControlName="Version">
+                  <input type="text" id="basic-form-5" class="form-control round" name="Version" formControlName="Version" required>
+                  <div *ngIf="docFormSubmitted && rf.Version.errors?.required" class="help-block mt-1 text-danger">
+                    <i class="ft-alert-circle align-middle"></i> Version is required
+                  </div>
                 </div>
                 <div class="form-row">
                   <div class="col-md-6 col-12">
                     <div class="form-group mb-2">
                       <label for="basic-form-6">Type</label>
-                      <select id="basic-form-6" name="TypesId" class="form-control round" formControlName="TypesId">
+                      <select id="basic-form-6" name="TypesId" class="form-control round" formControlName="TypesId" required>
                         <option value="" selected disabled>Choose Type</option>
                         <option *ngFor="let type of types" value="{{type.ID}}">{{type.Nom}}</option>
                       </select>
+                      <div *ngIf="docFormSubmitted && rf.TypesId.errors?.required" class="help-block mt-1 text-danger">
+                        <i class="ft-alert-circle align-middle"></i> Document type is required
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -66,8 +86,8 @@
                     </div>
                   </div>
                 </div>
-                <button type="button" class="btn btn-primary mr-2" (click)="submitDoc()"><i class="ft-check-square mr-1"></i>Ajouter</button>
-                <button type="button"  class="btn btn-secondary"><i class="ft-x mr-1"></i>Annuler</button>
+                <button type="button" class="btn btn-primary mr-2" (click)="submitDoc()"><i class="ft-check-square mr-1"></i>Add</button>
+                <button type="reset"  class="btn btn-secondary"><i class="ft-x mr-1"></i>Reset</button>
               </form>
           </div>
         </div>
